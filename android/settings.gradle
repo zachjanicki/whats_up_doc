@@ -1,0 +1,3 @@
+rootProject.name = 'whats_up_doc'
+
+include ':app'
