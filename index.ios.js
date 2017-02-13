@@ -11,6 +11,8 @@ import {
   Dimensions,
   Text,
   View,
+  StatusBar,
+  Animated,
   Image
 } from 'react-native';
 
@@ -22,15 +24,27 @@ var Sun = React.createClass({
     }
 })
 
+var radio_props = [
+  {label: 'param1', value: 0 },
+  {label: 'param2', value: 1 },
+  {label: 'param3', value: 2 },
+  {label: 'param4', value: 3 },
+  {label: 'param5', value: 4 },
+  {label: 'param6', value: 5 },
+  {label: 'param7', value: 6 }
+];
+
+question = "How are you feeling today?";
+
 var Card = React.createClass({
     render: function() {
         return (
             <View style={cardStyles.card}>
             	<View style={cardStyles.questionBox}>
-            		<Text style={cardStyles.questionText}>How are you feeling today?</Text>
+            		<Text style={cardStyles.questionText}>{question.toUpperCase()}</Text>
             	</View>
             	<View style={cardStyles.optionsBox}>
-            		<Text style={cardStyles.optionsText}>Option 1, option 2, option 3, option 4, option 5</Text>
+            		<Text style={cardStyles.optionsText}>Tap to type response</Text>
             	</View>
             </View>
         )
@@ -44,18 +58,8 @@ export default class whats_up_doc extends Component {
   render() {
     return (
       <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
-{/*
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-*/}
+      <StatusBar barStyle="light-content" />
+      
         <View style={styles.margin}>
         	
         </View>
@@ -64,10 +68,13 @@ export default class whats_up_doc extends Component {
         	<View style={styles.sky}>
         		<Sun />
         		<View style={styles.welcome}>
-        			<Text style={styles.time}>{time}</Text><Text style={styles.pm}>pm</Text>
+        			<Text style={styles.primaryText}>{time}</Text>
+        			<Text style={styles.secondaryText}>pm</Text>
 		        </View>
         	</View>
-        	<View style={styles.mountains}></View>
+        	<View style={styles.mountains}>
+        		<Image source={require('./images/mountains.png')} style={styles.image_mountains} />
+        	</View>
         	<View style={styles.foreground}>
         		<Card />
         	</View>
@@ -76,6 +83,7 @@ export default class whats_up_doc extends Component {
         <View style={styles.margin}>
         
         </View>
+        
       </Image>
     );
   }
@@ -109,12 +117,23 @@ const styles = StyleSheet.create({
     width: null,
     height: null,
   },
+  image_mountains: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0)',
+    resizeMode: 'cover',
+    overflow: 'visible',
+    width: null,
+    height: null,
+  },
   welcome: {
     margin: 10,
     backgroundColor: 'rgba(0,0,0,0)',
     flexDirection: 'row',
   },
-  time: {
+  primaryText: {
     fontSize: fontSizer(screen_width),
     fontFamily: 'Helvetica Neue',
     fontWeight: '600',
@@ -124,7 +143,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     alignSelf: 'flex-end',
   },
-  pm: {
+  secondaryText: {
     fontSize: 0.7*fontSizer(screen_width),
     fontFamily: 'Helvetica Neue',
     fontWeight: '400',
@@ -145,7 +164,7 @@ const styles = StyleSheet.create({
 	flexShrink: 0,
   },
   main:{
-	flex: 15,
+	flex: 10,
 	flexDirection: 'column',
 	backgroundColor: 'rgba(0,0,0,0)',
   },
@@ -210,20 +229,20 @@ const cardStyles = StyleSheet.create({
 	questionText: {
     	fontFamily: 'Helvetica Neue',
 	    fontWeight: '400',
-	    color: 'black',
+	    color: '#393939',
+	    letterSpacing: 0.3,
 	    margin: 10,
   	},
   	optionsBox:{
-		flex: 6,
-		justifyContent: 'center',
-		alignItems: 'center',
+		flex: 5,
 		backgroundColor: 'rgba(255,255,255,0.2)',
 	},
   	optionsText: {
     	fontFamily: 'Helvetica Neue',
-	    fontWeight: '400',
-	    color: 'black',
-	    margin: 10,
+    	fontSize: 0.7*fontSizer(screen_width),
+	    fontWeight: '200',
+	    color: 'rgba(92,96,100,0.5)',
+	    margin: 20,
   	},
 });
 
