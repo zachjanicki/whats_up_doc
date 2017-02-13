@@ -12,6 +12,7 @@ import {
   Text,
   View,
   StatusBar,
+  NavigatorIOS,
   Animated,
   Image
 } from 'react-native';
@@ -54,6 +55,8 @@ var Card = React.createClass({
 var time = new Date().now;
 time = "5:11"
 
+import LandingPage from './LandingPage'
+
 export default class whats_up_doc extends Component {
   render() {
     return (
@@ -84,7 +87,16 @@ export default class whats_up_doc extends Component {
         
         </View>
         
+      <NavigatorIOS
+        style={styles.container}
+        initialRoute={{
+          title: 'Landing Page',
+          component: LandingPage
+        }}
+      />
+      
       </Image>
+      
     );
   }
 }
@@ -127,6 +139,9 @@ const styles = StyleSheet.create({
     overflow: 'visible',
     width: null,
     height: null,
+    //justifyContent: 'center',
+    //alignItems: 'center',
+    //backgroundColor: '#F5FCFF',
   },
   welcome: {
     margin: 10,
