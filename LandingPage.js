@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import ModalScreen from './ModalScreen'
-import ArrowScreen from './ArrowScreen'
+import SurveyScreen from './SurveyScreen'
 
 export default class LandingPage extends Component {
   handlePress(nextComp) {
@@ -24,13 +24,13 @@ export default class LandingPage extends Component {
       component: ModalScreen,
       title: 'Modal Screen',
     };
-    const arrows = {
-      component: ArrowScreen,
-      title: 'Arrow Screen'
+    const survey = {
+      component: SurveyScreen,
+      title: 'Survey Screen'
     }
     return (
       <View style={styles.container}>
-        <Text style={styles.test_text}>Test text!!</Text>
+        <Text style={styles.test_text}>Test text</Text>
         <TouchableHighlight
           style={styles.button}
           onPress={() => this.handlePress(modal)}>
@@ -38,7 +38,7 @@ export default class LandingPage extends Component {
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.button}
-          onPress={() => this.handlePress(arrows)}>
+          onPress={() => this.handlePress(survey)}>
             <Text>To arrow survey view</Text>
         </TouchableHighlight>
       </View>
