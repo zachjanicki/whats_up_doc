@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   test_text: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10
+    margin: 10,
   },
   container: {
     flex: 1,
@@ -59,6 +59,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   button: {
-    backgroundColor: '#AAAAAA'
+    backgroundColor: '#AAAAAA',
   }
 })

@@ -26,16 +26,6 @@ var Sun = React.createClass({
     }
 })
 
-var radio_props = [
-  {label: 'param1', value: 0 },
-  {label: 'param2', value: 1 },
-  {label: 'param3', value: 2 },
-  {label: 'param4', value: 3 },
-  {label: 'param5', value: 4 },
-  {label: 'param6', value: 5 },
-  {label: 'param7', value: 6 }
-];
-
 question = "How are you feeling today?";
 
 var Card = React.createClass({
@@ -91,17 +81,16 @@ export default class TestLandingPage extends Component {
         	</View>
         	<View style={styles.foreground}>
         		<Card />
+        		<TouchableHighlight
+		          style={[cardStyles.questionBox, {backgroundColor: '#7eece7'}]}
+		          onPress={() => this.handlePress(survey)}>
+		            <Text>To arrow survey view</Text>
+		        </TouchableHighlight>
         	</View>
         	<View style={styles.status_bar}></View>
         </View>
         <View style={styles.margin}>
         </View>
-
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.handlePress(survey)}>
-            <Text>To arrow survey view</Text>
-        </TouchableHighlight>
 
       </Image>
 
