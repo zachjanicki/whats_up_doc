@@ -8,6 +8,7 @@ import {
   View,
   Navigator,
   NavigatorIOS,
+  Image,
   TouchableHighlight
 } from 'react-native';
 
@@ -23,20 +24,19 @@ export default class SurveyScreen extends Component {
 
   render() {
     return <ScrollableTabView
-      style={{marginTop: 50, }}
+      style={{marginTop: 80, }}
       renderTabBar={() => <DefaultTabBar />}
     >
-      <Text tabLabel='Tab #1'>My</Text>
-      <Text tabLabel='Tab #2'>favorite</Text>
-      <Text tabLabel='Tab #3'>project</Text>
-      <Text tabLabel='Tab #4'>Is</Text>
-      <Text tabLabel='Tab #5'>project</Text>
-      <Text tabLabel='Tab #6'>project</Text>
-      <Text tabLabel='Tab #7'>project</Text>
-      <Text tabLabel='Tab #8'>project</Text>
-      <Text tabLabel='Tab #9'>project</Text>
-      <Text tabLabel='Tab #10'>project</Text>
-      <Text tabLabel='Tab #11'>project</Text>
+      <View tabLabel='Tab #1' style={styles.container}><Text>My</Text></View>
+      <View tabLabel='Tab #2' style={styles.container}><Text>favorite</Text></View>
+      <View tabLabel='Tab #3' style={styles.container}><Text>project</Text></View>
+      <View tabLabel='Tab #4' style={styles.container}><Text>Is</Text></View>
+      <View tabLabel='Tab #5' style={styles.container}><Text>project</Text></View>
+      <View tabLabel='Tab #6' style={styles.container}><Text>project</Text></View>
+      <View tabLabel='Tab #7' style={styles.container}><Text>project</Text></View>
+      <View tabLabel='Tab #8' style={styles.container}><Text>project</Text></View>
+      <View tabLabel='Tab #9' style={styles.container}><Image tabLabel='Tab #9.5' source={require('./images/mountains.png')} style={styles.image_mountains} /></View>
+      <View tabLabel='Tab #10' style={styles.container}><Text>project</Text></View>
     </ScrollableTabView>;
   }
 
