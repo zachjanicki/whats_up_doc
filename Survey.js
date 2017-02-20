@@ -11,16 +11,38 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-export default class Survey extends Component {
-  render() {
-    return(
-      <View style={styles.transparentBackground}>
-        <View style={styles.qBackground}>
-          <Text>Here is some {this.props.text}</Text>
-        </View>
-      </View>
+import {RadioButtons} from 'react-native-radio-buttons'
 
-    )
+export default class Survey extends Component {
+  //const options = this.props.qOptions;
+
+  render() {
+
+    if (this.props.qType == 'radioSelection') {
+      return(
+        <View style={styles.transparentBackground}>
+          <View style={styles.qBackground}>
+            <Text>Here is some radioSelection {this.props.text}</Text>
+          </View>
+        </View>
+      );
+    } else if (this.props.qType == 'numericRating') {
+      return(
+        <View style={styles.transparentBackground}>
+          <View style={styles.qBackground}>
+            <Text>Here is some numericRating {this.props.text}</Text>
+          </View>
+        </View>
+      );
+    } else {
+      return(
+        <View style={styles.transparentBackground}>
+          <View style={styles.qBackground}>
+            <Text>Here is some {this.props.text}</Text>
+          </View>
+        </View>
+      );
+    }
   }
 }
 

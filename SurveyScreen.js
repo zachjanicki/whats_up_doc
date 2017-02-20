@@ -25,39 +25,25 @@ export default class SurveyScreen extends Component {
     this.props.navigator.push(nextComp)
   }
 
-    render() {
-      return(
-        <View style={styles.container}>
-          <View style={styles.qBackground}>
-            <Text style={styles.test_text}>Today's Survey is</Text>
-          </View>
-          <ScrollView horizontal={true} style={styles.scrollView}>
-            <Survey text="question 1"/>
-            <Survey text="question 2"/>
-            <Survey text="question 3"/>
-            <Survey text="question 4"/>
-          </ScrollView>
-        </View>
-    );
+  selectQuestions() {
+    // TODO
   }
 
-      /*
-      <Navigator
-        initialRoute={{title: 'Survey', index: 0}}
-        renderScene={(route, navigator) =>
-          <Survey
-            onForward={() => {
-
-            }}
-
-            onBack={() => {
-
-            }}
-          />
-        }
-      />*/
-  //  )
-  //};
+  render() {
+    return(
+      <View style={styles.container}>
+        <View style={styles.qBackground}>
+          <Text style={styles.test_text}>Today's Survey is</Text>
+        </View>
+        <ScrollView horizontal={true} style={styles.scrollView}>
+          <Survey text="question 1" qType='radioSelection'/>
+          <Survey text="question 2" qType='numericRating'/>
+          <Survey text="question 3" qtype='radioSelection'/>
+          <Survey text="question 4" qtype='numericRating'/>
+        </ScrollView>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
