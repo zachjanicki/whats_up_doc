@@ -14,12 +14,30 @@ import {
 export default class Survey extends Component {
   render() {
     return(
-      <View>
-        <Text>Here is some {this.props.text}</Text>
+      <View style={styles.transparentBackground}>
+        <View style={styles.qBackground}>
+          <Text>Here is some {this.props.text}</Text>
+        </View>
       </View>
+
     )
   }
 }
+
+const styles = StyleSheet.create({
+  qBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'blue',
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  transparentBackground: {
+    backgroundColor: 'transparent'
+  }
+})
+
 /*
 Survey.propTypes = {
   title: PropTypes.string.isRequired,
