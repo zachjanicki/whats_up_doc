@@ -9,7 +9,10 @@ import {
   Navigator,
   NavigatorIOS,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  Animated,
+  Dimensions,
+  ScrollView
 } from 'react-native';
 
 import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
@@ -22,22 +25,15 @@ export default class SurveyScreen extends Component {
     this.props.navigator.push(nextComp)
   }
 
-  render() {
-    return <ScrollableTabView
-      style={{marginTop: 80, }}
-      renderTabBar={() => <DefaultTabBar />}
-    >
-      <View tabLabel='Tab #1' style={styles.container}><Text>My</Text></View>
-      <View tabLabel='Tab #2' style={styles.container}><Text>favorite</Text></View>
-      <View tabLabel='Tab #3' style={styles.container}><Text>project</Text></View>
-      <View tabLabel='Tab #4' style={styles.container}><Text>Is</Text></View>
-      <View tabLabel='Tab #5' style={styles.container}><Text>project</Text></View>
-      <View tabLabel='Tab #6' style={styles.container}><Text>project</Text></View>
-      <View tabLabel='Tab #7' style={styles.container}><Text>project</Text></View>
-      <View tabLabel='Tab #8' style={styles.container}><Text>project</Text></View>
-      <View tabLabel='Tab #9' style={styles.container}><Image tabLabel='Tab #9.5' source={require('./images/mountains.png')} style={styles.image_mountains} /></View>
-      <View tabLabel='Tab #10' style={styles.container}><Text>project</Text></View>
-    </ScrollableTabView>;
+    render() {
+      return(
+        <ScrollView horizontal={true}>
+          <Survey text="question 1"/>
+          <Survey text="question 2"/>
+          <Survey text="question 3"/>
+          <Survey text="question 4"/>
+        </ScrollView>
+    );
   }
 
       /*
