@@ -8,6 +8,7 @@ import {
   View,
   Navigator,
   NavigatorIOS,
+  Dimensions,
   TouchableHighlight
 } from 'react-native';
 
@@ -17,49 +18,123 @@ export default class Survey extends Component {
   //const options = this.props.qOptions;
 
   render() {
-
+  	
+  	// Radio Question
     if (this.props.qType == 'radioSelection') {
       return(
-        <View style={styles.transparentBackground}>
-          <View style={styles.qBackground}>
-            <Text>Here is some radioSelection {this.props.text}</Text>
-          </View>
-        </View>
+	    <View style={cardStyles.cardWrapper}>
+	    	<View style={cardStyles.margin} />
+	        <View style={cardStyles.card}>
+	        	<View style={cardStyles.questionBox}>
+	        		<Text style={cardStyles.questionText}>{this.props.text.toUpperCase()}</Text>
+	        	</View>
+	        	<View style={cardStyles.optionsBox}>
+	        		<Text style={cardStyles.optionsText}>Here is some radioSelection</Text>
+	        	</View>
+	        </View>
+	    </View>
       );
+      
+    // Numeric Rating
     } else if (this.props.qType == 'numericRating') {
       return(
-        <View style={styles.transparentBackground}>
-          <View style={styles.qBackground}>
-            <Text>Here is some numericRating {this.props.text}</Text>
-          </View>
-        </View>
+        <View style={cardStyles.cardWrapper}>
+	    	<View style={cardStyles.margin} />
+	        <View style={cardStyles.card}>
+	        	<View style={cardStyles.questionBox}>
+	        		<Text style={cardStyles.questionText}>{this.props.text.toUpperCase()}</Text>
+	        	</View>
+	        	<View style={cardStyles.optionsBox}>
+	        		<Text style={cardStyles.optionsText}>Here is some numericRating</Text>
+	        	</View>
+	        </View>
+	    </View>
       );
+    
+    // Other
     } else {
       return(
-        <View style={styles.transparentBackground}>
-          <View style={styles.qBackground}>
-            <Text>Here is some {this.props.text}</Text>
-          </View>
-        </View>
+        <View style={cardStyles.cardWrapper}>
+	    	<View style={cardStyles.margin} />
+	        <View style={cardStyles.card}>
+	        	<View style={cardStyles.questionBox}>
+	        		<Text style={cardStyles.questionText}>{this.props.text.toUpperCase()}</Text>
+	        	</View>
+	        	<View style={cardStyles.optionsBox}>
+	        		<Text style={cardStyles.optionsText}>Here is some other</Text>
+	        	</View>
+	        </View>
+	    </View>
       );
     }
   }
 }
 
-const styles = StyleSheet.create({
-  qBackground: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'blue',
-    marginLeft: 10,
-    marginRight: 10,
-  },
-  transparentBackground: {
-    backgroundColor: 'transparent'
-  }
-})
+var {screen_height, screen_width} = Dimensions.get('window');
 
+function fontSizer (screenWidth) {
+  // iPhone 6/7 plus
+  if(screenWidth > 400){
+    return 80;
+
+  // iPhone 6/7
+  }else if(screenWidth > 250){
+    return 70;
+
+  // iPhone 5
+  }else {
+    return 60;
+  }
+}
+
+const cardStyles = StyleSheet.create({
+	cardWrapper:{
+		flex: 1,
+		flexDirection: 'row',
+	    width: 0.93*Dimensions.get('window').width,
+	},
+	margin:{
+		flex: 0.05,
+		backgroundColor: 'transparent',
+		flexShrink: 0,
+	  },
+	card:{
+		flex: 1,
+		flexDirection: 'column',
+		// Outer glow
+	    shadowOffset:{
+			width: 0,
+		    height: 0,
+	    },
+	    shadowColor: 'white',
+	    shadowOpacity: 0.3,
+	    shadowRadius: 3,
+	},
+	questionBox:{
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'rgba(255,255,255,0.8)',
+	},
+	questionText: {
+    	fontFamily: 'Helvetica Neue',
+	    fontWeight: '400',
+	    color: '#393939',
+	    letterSpacing: 0.3,
+	    margin: 10,
+  	},
+  	optionsBox:{
+		flex: 5,
+		backgroundColor: 'rgba(255,255,255,0.3)',
+	},
+  	optionsText: {
+    	fontFamily: 'Helvetica Neue',
+    	fontSize: 0.7*fontSizer(screen_width),
+	    fontWeight: '200',
+	    color: 'rgba(92,96,100,0.5)',
+	    margin: 20,
+  	},
+});
 /*
 Survey.propTypes = {
   title: PropTypes.string.isRequired,
