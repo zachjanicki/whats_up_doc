@@ -17,8 +17,9 @@ import {
 
 import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
 
-import LandingPage from './LandingPage'
-import Survey from './Survey'
+import LandingPage from './LandingPage';
+import Survey from './Survey';
+import qList from './questions.json';
 
 export default class SurveyScreen extends Component {
   handlePress(nextComp) {
@@ -28,19 +29,19 @@ export default class SurveyScreen extends Component {
   selectQuestions() {
     // TODO
   }
-
   render() {
+    let qRadioSelectionText = "Please select the sentence which most applies to you";
     return(
       <View style={styles.container}>
         <View style={styles.qBackground}>
-          <Text style={styles.test_text}>Today's Survey is</Text>
+          <Text style={styles.test_text}>Today's Survey</Text>
         </View>
         <ScrollView horizontal={true} style={styles.scrollView}>
-          <Survey text="question 1" qType='radioSelection'/>
-          <Survey text="question 2" qType='numericRating'/>
-          <Survey text="question 3" qtype='radioSelection'/>
-          <Survey text="question 4" qtype='numericRating'/>
-        </ScrollView>
+          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.sadness}/>
+          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.future}/>
+          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.failure}/>
+          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.satisfaction}/>
+      </ScrollView>
       </View>
     );
   }
@@ -67,5 +68,6 @@ const styles = StyleSheet.create({
   qBackground: {
     flex: 1,
     backgroundColor: 'skyblue',
+    marginTop: 35
   }
 })
