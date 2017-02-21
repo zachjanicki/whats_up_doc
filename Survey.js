@@ -9,7 +9,8 @@ import {
   Navigator,
   NavigatorIOS,
   Dimensions,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 import {RadioButtons} from 'react-native-radio-buttons'
@@ -21,7 +22,34 @@ export default class Survey extends Component {
   	
   	// Radio Question
     if (this.props.qType == 'radioSelection') {
-      return(
+      const options = this.props.qOptions;
+      this.state = {selectedOption: 0}
+      function setSelectedOption(selectedOption) {
+        this.setState({
+          selectedOption
+        });
+      }
+
+      function renderOption(option, selected, onSelect, index){
+        const style = selected ? { fontWeight: 'bold'} : {};
+
+        return (
+          <TouchableWithoutFeedback onPress={onSelect} key={index}>
+            <View>
+              <Text style={style}>{option}</Text>
+            </View>
+          </TouchableWithoutFeedback>
+        );
+       }
+      
+      function renderContainer(optionNodes){
+        return <View>{optionNodes}</View>;
+      }
+
+      
+      
+   
+    return(
 	    <View style={cardStyles.cardWrapper}>
 	    	<View style={cardStyles.margin} />
 	        <View style={cardStyles.card}>
@@ -29,13 +57,20 @@ export default class Survey extends Component {
 	        		<Text style={cardStyles.questionText}>{this.props.text.toUpperCase()}</Text>
 	        	</View>
 	        	<View style={cardStyles.optionsBox}>
-	        		<Text style={cardStyles.optionsText}>Here is some radioSelection</Text>
+	        		<RadioButtons
+		              options={ options }
+		              onSelection={ setSelectedOption.bind(this) }
+		              selectedOption={this.state.selectedOption }
+		              renderOption={ renderOption }
+		              renderContainer={ renderContainer }
+		            />
 	        	</View>
 	        </View>
 	    </View>
       );
-      
-    // Numeric Rating
+
+
+	   // Numeric Rating
     } else if (this.props.qType == 'numericRating') {
       return(
         <View style={cardStyles.cardWrapper}>
@@ -84,8 +119,9 @@ function fontSizer (screenWidth) {
   // iPhone 5
   }else {
     return 60;
-  }
-}
+    
+    }
+};
 
 const cardStyles = StyleSheet.create({
 	cardWrapper:{
@@ -135,10 +171,3 @@ const cardStyles = StyleSheet.create({
 	    margin: 20,
   	},
 });
-/*
-Survey.propTypes = {
-  title: PropTypes.string.isRequired,
-  onForward: PropTypes.func.isRequired,
-  onBack: PropTypes.func.isRequired
-};
-*/
