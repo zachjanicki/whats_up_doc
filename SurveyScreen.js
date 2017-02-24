@@ -23,6 +23,14 @@ import Survey from './Survey';
 import qList from './questions.json';
 
 export default class SurveyScreen extends Component {
+  constructor() {
+    super();
+    this.state = {
+      scrollViewXPos: 0,
+      score: 0,
+    }
+  }
+
   handlePress(nextComp) {
     this.props.navigator.push(nextComp)
   }
@@ -32,6 +40,7 @@ export default class SurveyScreen extends Component {
   }
   render() {
     let qRadioSelectionText = "Please select the sentence which most applies to you";
+    var _scrollView: ScrollView;
     return(
 	  <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
 	  	<View style={styles.sky}>
@@ -50,9 +59,14 @@ export default class SurveyScreen extends Component {
 	        	horizontal={true}
 	        	showsVerticalScrollIndicator={false}
 	        	showsHorizontalScrollIndicator={false}
-				style={styles.scrollView}
-				automaticallyAdjustContentInsets={false}
-				>
+				    style={styles.scrollView}
+				    automaticallyAdjustContentInsets={false}
+            scrollEnabled={true}
+            ref={(scrollView) => { _scrollView = scrollView; }}
+          >
+            <TouchableHighlight onPress={() => { _scrollView.scrollTo({x: 1000, y: 0}); }}>
+              <Text>Touch me</Text>
+            </TouchableHighlight>
 	          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.sadness}/>
 	          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.future}/>
 	          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.failure}/>
