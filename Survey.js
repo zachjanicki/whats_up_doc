@@ -19,7 +19,7 @@ export default class Survey extends Component {
   //const options = this.props.qOptions;
 
   render() {
-  	
+
   	// Radio Question
     if (this.props.qType == 'radioSelection') {
       const options = this.props.qOptions;
@@ -41,14 +41,14 @@ export default class Survey extends Component {
           </TouchableWithoutFeedback>
         );
        }
-      
+
       function renderContainer(optionNodes){
         return <View>{optionNodes}</View>;
       }
 
-      
-      
-   
+
+
+    console.log(this.props);
     return(
 	    <View style={cardStyles.cardWrapper}>
 	    	<View style={cardStyles.margin} />
@@ -64,6 +64,9 @@ export default class Survey extends Component {
 		              renderOption={ renderOption }
 		              renderContainer={ renderContainer }
 		            />
+              <TouchableHighlight onPress={() => {console.log(this.props);this.props.onFCall(this.props.scrollRef, "from child");} }>
+                <Text>This should scroll</Text>
+              </TouchableHighlight>
 	        	</View>
 	        </View>
 	    </View>
@@ -85,7 +88,7 @@ export default class Survey extends Component {
 	        </View>
 	    </View>
       );
-    
+
     // Other
     } else {
       return(
@@ -119,7 +122,7 @@ function fontSizer (screenWidth) {
   // iPhone 5
   }else {
     return 60;
-    
+
     }
 };
 

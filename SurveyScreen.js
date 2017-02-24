@@ -38,6 +38,13 @@ export default class SurveyScreen extends Component {
   selectQuestions() {
     // TODO
   }
+
+  testFunction(refs, callingLocation) {
+    console.log(callingLocation);
+    console.log(refs);
+    refs._scrollView.scrollTo({x: 1000, y: 0});
+  }
+//ref={(scrollView) => { _scrollView = scrollView; }}
   render() {
     let qRadioSelectionText = "Please select the sentence which most applies to you";
     var _scrollView: ScrollView;
@@ -62,15 +69,15 @@ export default class SurveyScreen extends Component {
 				    style={styles.scrollView}
 				    automaticallyAdjustContentInsets={false}
             scrollEnabled={true}
-            ref={(scrollView) => { _scrollView = scrollView; }}
+            ref='_scrollView'
           >
-            <TouchableHighlight onPress={() => { _scrollView.scrollTo({x: 1000, y: 0}); }}>
+            <TouchableHighlight onPress={() => { /*_scrollView.scrollTo({x: 1000, y: 0});*/ this.testFunction(this.refs, "from scrollview") }}>
               <Text>Touch me</Text>
             </TouchableHighlight>
-	          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.sadness}/>
-	          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.future}/>
-	          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.failure}/>
-	          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.satisfaction}/>
+	          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.sadness} onFCall={this.testFunction} scrollRef={this.refs}/>
+	          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.future} onFCall={this.testFunction} scrollRef={this.refs}/>
+	          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.failure} onFCall={this.testFunction} scrollRef={this.refs}/>
+	          <Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.satisfaction} onFCall={this.testFunction} scrollRef={this.refs}/>
 	        </ScrollView>
 	    </View>
       </Image>
