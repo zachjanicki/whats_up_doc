@@ -50,7 +50,9 @@ export default class SurveyScreen extends Component {
   render() {
     let qRadioSelectionText = "Please select the sentence which most applies to you";
     var _scrollView: ScrollView;
-    const singleCard = (argument) => {
+    const singleCard = (cardID, qType, question) => {
+      // qtype is either "worded", "numericSymptom", or "numericDescription"
+      // question is a JSON object
       return (
         <View style={styles.cardWrapper}>
           <View style={styles.margin} />

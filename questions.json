@@ -1,9 +1,18 @@
 {
   "questions": {
-    "anxiety": {
-
+    "numericSymptom": {
+      "symptoms": ["Numbness or tingling", "Feeling Hot", "Wobbliness in legs", "Unable to relax", "Fear of the worst happening",
+                   "Dizzy or lightheaded", "Heart pounding or racing", "Unsteady", "Terrified or afraid"]
     },
-    "depression": {
+    "numericDescription": {
+      "Anxious mood": "Worries, anticipation of the worst, fearful anticipation, irritability",
+      "Tension": "Feelings of tension, fatigability, startled responses, moved to tears easily, trembling, feelings of restlessness, inability to relax",
+      "Fears": "Of strangers, of dark, of being left alone, of animals, of traffic, of crowds",
+      "Insomnia": "Difficulty falling asleep, broken sleep, unsatisfying sleep and fatigue on waking, dreas, nightmare, night terrors",
+      "Intellectual": "Difficulty concentrating, poor memory",
+      "Somatic (muscular)": "Pains and aches, twitching, stiffness, myoclonic jerks, grinding of teeth, unsteady voice, increased muscular tone"
+    },
+    "worded": {
       "sadness": ["I do not feel sad", "I feel sad", "I am sad all the time and I can't snap out of it", "I am so sad and unhappy that I can't stand it"],
       "future": ["I am not particularly discouraged about the future", "I feel discouraged about the future", "I feel I have nothing to look forward to.", "I feel the future is hopeless and that things cannot improve."],
       "failure": ["I do not feel like a failure.", "I feel I have failed more than the average person.", "As I look back on my life, all I can see is a lot of failures.", "I feel I am a complete failure as a person."],
