@@ -125,7 +125,7 @@ export default class SurveyScreen extends Component {
             <View style={styles.margin} />
               <View style={styles.card}>
                 <View style={styles.questionBox}>
-                  <Text style={styles.questionText}>{Object.keys(cardQuestion)[0]}</Text>
+                  <Text style={styles.questionText}>{Object.keys(cardQuestion)[0].toUpperCase()}</Text>
                 </View>
                 <View style={styles.optionsBox}>
                   <TouchableHighlight onPress={() => {}} underlayColor={'#fff'}>
