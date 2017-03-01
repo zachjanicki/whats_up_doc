@@ -22,6 +22,8 @@ import LandingPage from './LandingPage';
 import Survey from './Survey';
 import qList from './questions.json';
 
+
+
 export default class SurveyScreen extends Component {
   constructor() {
     super();
@@ -35,8 +37,68 @@ export default class SurveyScreen extends Component {
     this.props.navigator.push(nextComp)
   }
 
-  selectQuestions() {
-    // TODO
+  selectQuestion(cardID) { //cardID is an int
+    var now = new Date();
+    var start = new Date(now.getFullYear(), 0, 0);
+    var diff = now - start;
+    var oneDay = 1000 * 60 * 60 * 24;
+    var day = Math.floor(diff / oneDay);
+    day = 59; // setting this constant for debugging
+    var wordedModValue = 4;
+    var numericSymptomModValue = 3;
+    var numericDescriptionModValue = 3;
+    var counter = 0;
+
+    if (cardID < 5) {
+      // get a worded qType
+      var j = qList.questions.worded;
+      var questionNumber = (cardID * 4) + (day % wordedModValue);
+      if (questionNumber > 19) {
+        questionNumber = 19;
+      }
+      for (var q in j) {
+        if (j.hasOwnProperty(q)) {
+          counter++;
+          if (counter == questionNumber) {
+            var obj = {};
+            obj[q] = j[q];
+            return obj
+            //return qList.questions.worded.q;
+          }
+        }
+      }
+    } else if (cardID >= 5 && cardID < 7) {
+      // get a numericSymptom qType
+      cardID -= 5;
+      var j = qList.questions.numericSymptom;
+      var questionNumber = (cardID * 3) + (day % numericSymptomModValue);
+      if (questionNumber > 8) {
+        questionNumber = 8;
+      }
+      for (var i = 0; i < 9; i++) {
+        if (i == questionNumber) {
+          return j.symptoms[i];
+        }
+      }
+    } else {
+      // get a numericDescription qType
+      cardID -= 7;
+      var j = qList.questions.numericDescription;
+      var questionNumber = (cardID * 2) + (day % numericSymptomModValue);
+      if (questionNumber > 5) {
+        questionNumber = 5;
+      }
+      for (var q in j) {
+        if (j.hasOwnProperty(q)) {
+          counter++;
+          if (counter == questionNumber) {
+            var obj = {};
+            obj[q] = j[q];
+            return obj
+          }
+        }
+      }
+    }
   }
 
   testFunction(refs, callingLocation) {
@@ -46,33 +108,102 @@ export default class SurveyScreen extends Component {
   }
 
 //ref={(scrollView) => { _scrollView = scrollView; }}
-
+// onPress={() => { this.testFunction(this.refs, "from new function!") }}
+// ^ that is how to use refs to play with the scrollView... will be used later
   render() {
     let qRadioSelectionText = "Please select the sentence which most applies to you";
     var _scrollView: ScrollView;
-    const singleCard = (cardID, qType, question) => {
+    const singleCard = (cardID, qType, cardLocation) => {
       // qtype is either "worded", "numericSymptom", or "numericDescription"
       // question is a JSON object
-      return (
-        <View style={styles.cardWrapper}>
-          <View style={styles.margin} />
-            <View style={styles.card}>
-              <View style={styles.questionBox}>
-                <TouchableHighlight>
-                  <Text style={styles.questionText}>rendering {argument}</Text>
-                </TouchableHighlight>
+      var i = 0;
+      var cardQuestion = this.selectQuestion(cardID);
+      if (cardID < 5) {
+        // worded question type
+        return (
+          <View style={styles.cardWrapper}>
+            <View style={styles.margin} />
+              <View style={styles.card}>
+                <View style={styles.questionBox}>
+                  <Text style={styles.questionText}>{Object.keys(cardQuestion)[0]}</Text>
+                </View>
+                <View style={styles.optionsBox}>
+                  <TouchableHighlight onPress={() => {}}>
+                    <Text>{cardQuestion[Object.keys(cardQuestion)[0]][0]}</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => {}}>
+                    <Text>{cardQuestion[Object.keys(cardQuestion)[0]][1]}</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => {}}>
+                    <Text>{cardQuestion[Object.keys(cardQuestion)[0]][2]}</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => {}}>
+                    <Text>{cardQuestion[Object.keys(cardQuestion)[0]][3]}</Text>
+                  </TouchableHighlight>
+                </View>
               </View>
-              <View style={styles.optionsBox}>
-                <TouchableHighlight>
-                  <Text>This is where the radio buttons were</Text>
-                </TouchableHighlight>
-                <TouchableHighlight onPress={() => { this.testFunction(this.refs, "from new function!") }}>
-                  <Text>Touch me</Text>
-                </TouchableHighlight>
+          </View>
+        );
+      } else if (cardID >= 5 && cardID < 7) {
+        // numericSymptom
+        var numericSymptomText = "Please rate how much this feeling has affected you in the past on a scale of 1 (not at all) to 4 (very often)?";
+        return (
+          <View style={styles.cardWrapper}>
+            <View style={styles.margin} />
+              <View style={styles.card}>
+                <View style={styles.questionBox}>
+                  <TouchableHighlight>
+                    <Text style={styles.questionText}>{cardQuestion}</Text>
+                  </TouchableHighlight>
+                </View>
+                <View style={styles.optionsBox}>
+                  <Text>{numericSymptomText}</Text>
+                  <TouchableHighlight onPress={() => {}}>
+                    <Text>1</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => {}}>
+                    <Text>2</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => {}}>
+                    <Text>3</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => {}}>
+                    <Text>4</Text>
+                  </TouchableHighlight>
+                </View>
               </View>
-            </View>
-        </View>
-      );
+          </View>
+        );
+      } else {
+        // numericDescription
+        var numericDescriptionText = "How often have you had " + cardQuestion[Object.keys(cardQuestion)[0]] + " in the past week on a scale of 1 (not at all) to 4 (very often)?";
+        return (
+          <View style={styles.cardWrapper}>
+            <View style={styles.margin} />
+              <View style={styles.card}>
+                <View style={styles.questionBox}>
+                  <Text style={styles.questionText}>{Object.keys(cardQuestion)[0]}</Text>
+                </View>
+                <View style={styles.optionsBox}>
+                  <Text>{numericDescriptionText}</Text>
+                  <TouchableHighlight onPress={() => {}}>
+                    <Text>1</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => {}}>
+                    <Text>2</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => {}}>
+                    <Text>3</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => {}}>
+                    <Text>4</Text>
+                  </TouchableHighlight>
+                </View>
+              </View>
+          </View>
+        );
+      }
+
     }
     return (
       <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
@@ -100,24 +231,35 @@ export default class SurveyScreen extends Component {
               {/* Hey michael we should use comments but if they're going in
                   the JSX part, they have to go in brackets like this. Yes it is weird*/}
 
-              {/*1*/}
               <View>
-                {singleCard('1')}
+                {singleCard(0, 'worded', 0)}
               </View>
               <View>
-                {singleCard('2')}
+                {singleCard(4, 'worded', 1)}
               </View>
               <View>
-                {singleCard('3')}
+                {singleCard(1, 'worded', 2)}
               </View>
               <View>
-                {singleCard('4')}
+                {singleCard(5, 'numericSymptom', 3)}
               </View>
               <View>
-                {singleCard('5')}
+                {singleCard(2, 'worded', 4)}
               </View>
               <View>
-                {singleCard('6')}
+                {singleCard(6, 'numericSymptom', 5)}
+              </View>
+              <View>
+                {singleCard(3, 'worded', 6)}
+              </View>
+              <View>
+                {singleCard(7, 'numericDescription', 7)}
+              </View>
+              <View>
+                {singleCard(8, 'numericDescription', 8)}
+              </View>
+              <View>
+                {singleCard(9, 'numericDescription', 9)}
               </View>
 
             </ScrollView>
