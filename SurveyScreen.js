@@ -128,17 +128,37 @@ export default class SurveyScreen extends Component {
                   <Text style={styles.questionText}>{Object.keys(cardQuestion)[0]}</Text>
                 </View>
                 <View style={styles.optionsBox}>
-                  <TouchableHighlight onPress={() => {}}>
-                    <Text>{cardQuestion[Object.keys(cardQuestion)[0]][0]}</Text>
+                  <TouchableHighlight onPress={() => {}} underlayColor={'#fff'}>
+	                  <View style={styles.line}>
+	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<View style={styles.textWrapper}>
+	                    	<Text style={styles.optionsText}>{cardQuestion[Object.keys(cardQuestion)[0]][0]}</Text>
+	                    </View>
+	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {}}>
-                    <Text>{cardQuestion[Object.keys(cardQuestion)[0]][1]}</Text>
+                  <TouchableHighlight onPress={() => {}} underlayColor={'#fff'}>
+	                  <View style={styles.line}>
+	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<View style={styles.textWrapper}>
+	                    	<Text style={styles.optionsText}>{cardQuestion[Object.keys(cardQuestion)[0]][1]}</Text>
+	                    </View>
+	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {}}>
-                    <Text>{cardQuestion[Object.keys(cardQuestion)[0]][2]}</Text>
+                  <TouchableHighlight onPress={() => {}} underlayColor={'#fff'}>
+	                  <View style={styles.line}>
+	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<View style={styles.textWrapper}>
+	                    	<Text style={styles.optionsText}>{cardQuestion[Object.keys(cardQuestion)[0]][2]}</Text>
+	                    </View>
+	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {}}>
-                    <Text>{cardQuestion[Object.keys(cardQuestion)[0]][3]}</Text>
+                  <TouchableHighlight onPress={() => {}} underlayColor={'#fff'}>
+	                  <View style={styles.line}>
+	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<View style={styles.textWrapper}>
+	                    	<Text style={styles.optionsText}>{cardQuestion[Object.keys(cardQuestion)[0]][3]}</Text>
+	                    </View>
+	                  </View>
                   </TouchableHighlight>
                 </View>
               </View>
@@ -208,16 +228,18 @@ export default class SurveyScreen extends Component {
     return (
       <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
       	<View style={styles.sky}>
-      		<Image source={require('./images/sun.png')} style={styles.sun} />
+      		<View style={styles.sun} />
       		<View style={styles.space} />
-      		<View style={styles.welcome}>
+      		<View style={styles.counter}>
       			<Text style={styles.primaryText}>1</Text>
       			<Text style={styles.secondaryText}>/10</Text>
             </View>
       	</View>
+      	{/*
       	<View style={styles.mountains}>
       		<Image source={require('./images/mountains.png')} style={styles.image_mountains} />
       	</View>
+      	*/}
         <View style={styles.container}>
             <ScrollView
             	horizontal={true}
@@ -228,8 +250,7 @@ export default class SurveyScreen extends Component {
               scrollEnabled={true}
               ref='_scrollView'
             >
-              {/* Hey michael we should use comments but if they're going in
-                  the JSX part, they have to go in brackets like this. Yes it is weird*/}
+              {/* Note: comments in JSX part go in brackets like this.*/}
 
               <View>
                 {singleCard(0, 'worded', 0)}
@@ -264,6 +285,7 @@ export default class SurveyScreen extends Component {
 
             </ScrollView>
         </View>
+        <View style={[{marginBottom: 20}]} />
         </Image>
     )
   }
@@ -309,13 +331,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    paddingVertical: 20
   },
-  welcome: {
+  counter: {
     flex: 2,
-    margin: 10,
     backgroundColor: 'rgba(0,0,0,0)',
     flexDirection: 'row',
+    marginTop: 15,
   },
   primaryText: {
     fontSize: fontSizer(screen_width),
@@ -325,7 +346,6 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     backgroundColor: 'rgba(0,0,0,0)',
     color: '#ffffff',
-    alignSelf: 'flex-end',
   },
   secondaryText: {
     fontSize: 0.7*fontSizer(screen_width),
@@ -335,21 +355,20 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: 'rgba(255,255,255,0.5)',
     backgroundColor: 'rgba(0,0,0,0)',
-    alignSelf: 'flex-end',
+    marginTop: 20,
   },
   sky: {
     flex: 4,
     marginTop: 65,
     backgroundColor: 'rgba(0,0,0,0)',
     flexDirection: 'row',
-    justifyContent: 'space-around',
   },
   mountains: {
-    flex: 4,
+    flex: 2,
     backgroundColor: 'rgba(255,255,0,0.0)',
   },
   foreground: {
-    flex: 8,
+    flex: 6,
     backgroundColor: 'rgba(255,255,255,0.5)',
   },
   space: {
@@ -400,14 +419,32 @@ const styles = StyleSheet.create({
 	  margin: 10,
   },
   optionsBox: {
-		flex: 5,
+		flex: 6,
 		backgroundColor: 'rgba(255,255,255,0.3)',
 	},
-  optionsText: {
-    fontFamily: 'Helvetica Neue',
-    fontSize: 0.7*fontSizer(screen_width),
-	  fontWeight: '200',
-	  color: 'rgba(92,96,100,0.5)',
-    margin: 20,
-  },
+	line:{
+		flex: -1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		flexWrap: 'wrap', 
+        alignItems: 'flex-start',
+	},
+	textWrapper:{
+		flex: 4,
+		flexDirection: 'column',
+	},
+	optionsText: {
+		fontFamily: 'Helvetica Neue',
+		fontSize: 0.3*fontSizer(screen_width),
+		fontWeight: '300',
+		color: 'rgba(30,30,30,.6)',
+		margin: 0.3*fontSizer(screen_width),
+	},
+	radio: {
+		flex: 0.5,
+		marginLeft: 20,
+		width: 10,
+		resizeMode: 'contain',
+	},
 })
