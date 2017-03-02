@@ -30,11 +30,8 @@ export default class SurveyScreen extends Component {
     this.state = {
       scrollViewXPos: 0,
       score: 0,
+      cardNumber: 1,
     }
-  }
-
-  handlePress(nextComp) {
-    this.props.navigator.push(nextComp)
   }
 
   selectQuestion(cardID) { //cardID is an int
@@ -107,6 +104,37 @@ export default class SurveyScreen extends Component {
     refs._scrollView.scrollTo({x: 1000, y: 0});
   }
 
+  handlePress(answerValue, cardLocation, cardID) {
+    if (cardID == 9) {
+      // move on to next view
+      var currentScore = this.state.score;
+      currentScore += answerValue;
+      var currentX = 347 * (cardID + 1); // this will be adjusted later with a function that gets us the screen width
+      var currentCardNumber = this.state.cardNumber;
+      currentCardNumber = cardLocation + 1;
+      this.setState({
+        score: currentScore,
+        scrollViewXPos: currentX,
+        cardNumber: currentCardNumber
+      });
+      console.log(this.state);
+    } else {
+      // update state, slide over
+      var currentScore = this.state.score;
+      currentScore += answerValue;
+      var currentX = 347 * (cardID + 1); // this will be adjusted later with a function that gets us the screen width
+      var currentCardNumber = this.state.cardNumber;
+      currentCardNumber = cardLocation + 1;
+      this.setState({
+        score: currentScore,
+        scrollViewXPos: currentX,
+        cardNumber: currentCardNumber
+      });
+      this.refs._scrollView.scrollTo({x: currentX});
+    }
+
+  }
+
 //ref={(scrollView) => { _scrollView = scrollView; }}
 // onPress={() => { this.testFunction(this.refs, "from new function!") }}
 // ^ that is how to use refs to play with the scrollView... will be used later
@@ -128,7 +156,7 @@ export default class SurveyScreen extends Component {
                   <Text style={styles.questionText}>{Object.keys(cardQuestion)[0].toUpperCase()}</Text>
                 </View>
                 <View style={styles.optionsBox}>
-                  <TouchableHighlight onPress={() => {}} underlayColor={'#fff'}>
+                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
 	                  <View style={styles.line}>
 	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
@@ -136,7 +164,7 @@ export default class SurveyScreen extends Component {
 	                    </View>
 	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {}} underlayColor={'#fff'}>
+                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
 	                  <View style={styles.line}>
 	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
@@ -144,7 +172,7 @@ export default class SurveyScreen extends Component {
 	                    </View>
 	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {}} underlayColor={'#fff'}>
+                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
 	                  <View style={styles.line}>
 	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
@@ -152,7 +180,7 @@ export default class SurveyScreen extends Component {
 	                    </View>
 	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {}} underlayColor={'#fff'}>
+                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
 	                  <View style={styles.line}>
 	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
@@ -178,16 +206,16 @@ export default class SurveyScreen extends Component {
                 </View>
                 <View style={styles.optionsBox}>
                   <Text>{numericSymptomText}</Text>
-                  <TouchableHighlight onPress={() => {}}>
+                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}}>
                     <Text>1</Text>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {}}>
+                  <TouchableHighlight onPress={() => {this.handlePress(2, cardLocation, cardLocation)}}>
                     <Text>2</Text>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {}}>
+                  <TouchableHighlight onPress={() => {this.handlePress(3, cardLocation, cardLocation)}}>
                     <Text>3</Text>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {}}>
+                  <TouchableHighlight onPress={() => {this.handlePress(4, cardLocation, cardLocation)}}>
                     <Text>4</Text>
                   </TouchableHighlight>
                 </View>
@@ -206,16 +234,16 @@ export default class SurveyScreen extends Component {
                 </View>
                 <View style={styles.optionsBox}>
                   <Text>{numericDescriptionText}</Text>
-                  <TouchableHighlight onPress={() => {}}>
+                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}}>
                     <Text>1</Text>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {}}>
+                  <TouchableHighlight onPress={() => {this.handlePress(2, cardLocation, cardLocation)}}>
                     <Text>2</Text>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {}}>
+                  <TouchableHighlight onPress={() => {this.handlePress(3, cardLocation, cardLocation)}}>
                     <Text>3</Text>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {}}>
+                  <TouchableHighlight onPress={() => {this.handlePress(4, cardLocation, cardLocation)}}>
                     <Text>4</Text>
                   </TouchableHighlight>
                 </View>
@@ -231,7 +259,7 @@ export default class SurveyScreen extends Component {
       		<View style={styles.sun} />
       		<View style={styles.space} />
       		<View style={styles.counter}>
-      			<Text style={styles.primaryText}>1</Text>
+      			<Text style={styles.primaryText} ref='_cardNumberText'>{this.state.cardNumber}</Text>
       			<Text style={styles.secondaryText}>/10</Text>
             </View>
       	</View>
@@ -427,7 +455,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		flexWrap: 'wrap', 
+		flexWrap: 'wrap',
         alignItems: 'flex-start',
 	},
 	textWrapper:{
