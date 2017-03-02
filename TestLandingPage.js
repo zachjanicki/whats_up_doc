@@ -53,11 +53,7 @@ export default class TestLandingPage extends Component {
         <View style={styles.main}>
         	<View style={styles.status_bar}></View>
         	<View style={styles.sky}>
-        		<Sun />
-        		<View style={styles.timing}>
-        			<Text style={styles.primaryText}>{time}</Text>
-        			<Text style={styles.secondaryText}>pm</Text>
-		        </View>
+        		
         	</View>
         	<View style={styles.foreground}>
         		<View style={styles.welcome}>
@@ -140,19 +136,19 @@ const styles = StyleSheet.create({
 	  color: 'rgba(92,126,153,0.9)',
 	  fontWeight: '600',
 	  marginBottom: 10,
-	  lineHeight: 60,
+	  lineHeight: 65,
   },
   subText:{
 	  fontSize: 0.3*fontSizer(screen_width),
 	  color: 'rgba(92,126,153,0.5)',
 	  fontWeight: '600',
-	  marginBottom: 10,
+	  marginBottom: 25,
   },
   beginText:{
 	  fontSize: 0.3*fontSizer(screen_width),
 	  color: 'rgba(92,126,153,0.4)',
 	  fontWeight: '200',
-	  letterSpacing: 5,
+	  letterSpacing: 3,
   },
   primaryText: {
     fontSize: fontSizer(screen_width),
