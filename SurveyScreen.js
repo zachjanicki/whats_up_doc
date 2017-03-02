@@ -31,6 +31,7 @@ export default class SurveyScreen extends Component {
       scrollViewXPos: 0,
       score: 0,
       cardNumber: 1,
+      img: './images/radio.png',
     }
   }
 
@@ -105,6 +106,7 @@ export default class SurveyScreen extends Component {
   }
 
   handlePress(answerValue, cardLocation, cardID) {
+	this.state.img = './images/radio_selected.png'
     if (cardID == 9) {
       // move on to next view
       var currentScore = this.state.score;
@@ -158,7 +160,7 @@ export default class SurveyScreen extends Component {
                 <View style={styles.optionsBox}>
                   <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
 	                  <View style={styles.line}>
-	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<Image source={require('./images/radio_selected.png')} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>{cardQuestion[Object.keys(cardQuestion)[0]][0]}</Text>
 	                    </View>
@@ -200,23 +202,41 @@ export default class SurveyScreen extends Component {
             <View style={styles.margin} />
               <View style={styles.card}>
                 <View style={styles.questionBox}>
-                  <TouchableHighlight>
-                    <Text style={styles.questionText}>{cardQuestion}</Text>
-                  </TouchableHighlight>
+                    <Text style={styles.questionText}>{cardQuestion.toUpperCase()}</Text>
                 </View>
                 <View style={styles.optionsBox}>
-                  <Text>{numericSymptomText}</Text>
-                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}}>
-                    <Text>1</Text>
+                  <Text style={styles.optionsText}>{numericSymptomText}</Text>
+                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                    <View style={styles.line}>
+	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<View style={styles.textWrapper}>
+	                    	<Text style={styles.optionsText}>1</Text>
+	                    </View>
+	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {this.handlePress(2, cardLocation, cardLocation)}}>
-                    <Text>2</Text>
+                  <TouchableHighlight onPress={() => {this.handlePress(2, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                    <View style={styles.line}>
+	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<View style={styles.textWrapper}>
+	                    	<Text style={styles.optionsText}>2</Text>
+	                    </View>
+	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {this.handlePress(3, cardLocation, cardLocation)}}>
-                    <Text>3</Text>
+                  <TouchableHighlight onPress={() => {this.handlePress(3, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                    <View style={styles.line}>
+	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<View style={styles.textWrapper}>
+	                    	<Text style={styles.optionsText}>3</Text>
+	                    </View>
+	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {this.handlePress(4, cardLocation, cardLocation)}}>
-                    <Text>4</Text>
+                  <TouchableHighlight onPress={() => {this.handlePress(4, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                    <View style={styles.line}>
+	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<View style={styles.textWrapper}>
+	                    	<Text style={styles.optionsText}>4</Text>
+	                    </View>
+	                  </View>
                   </TouchableHighlight>
                 </View>
               </View>
@@ -230,21 +250,41 @@ export default class SurveyScreen extends Component {
             <View style={styles.margin} />
               <View style={styles.card}>
                 <View style={styles.questionBox}>
-                  <Text style={styles.questionText}>{Object.keys(cardQuestion)[0]}</Text>
+                  <Text style={styles.questionText}>{Object.keys(cardQuestion)[0].toUpperCase()}</Text>
                 </View>
                 <View style={styles.optionsBox}>
-                  <Text>{numericDescriptionText}</Text>
-                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}}>
-                    <Text>1</Text>
+                  <Text style={styles.optionsText}>{numericDescriptionText}</Text>
+                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                    <View style={styles.line}>
+	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<View style={styles.textWrapper}>
+	                    	<Text style={styles.optionsText}>1</Text>
+	                    </View>
+	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {this.handlePress(2, cardLocation, cardLocation)}}>
-                    <Text>2</Text>
+                  <TouchableHighlight onPress={() => {this.handlePress(2, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                    <View style={styles.line}>
+	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<View style={styles.textWrapper}>
+	                    	<Text style={styles.optionsText}>2</Text>
+	                    </View>
+	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {this.handlePress(3, cardLocation, cardLocation)}}>
-                    <Text>3</Text>
+                  <TouchableHighlight onPress={() => {this.handlePress(3, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                    <View style={styles.line}>
+	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<View style={styles.textWrapper}>
+	                    	<Text style={styles.optionsText}>3</Text>
+	                    </View>
+	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {this.handlePress(4, cardLocation, cardLocation)}}>
-                    <Text>4</Text>
+                  <TouchableHighlight onPress={() => {this.handlePress(4, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                    <View style={styles.line}>
+	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<View style={styles.textWrapper}>
+	                    	<Text style={styles.optionsText}>4</Text>
+	                    </View>
+	                  </View>
                   </TouchableHighlight>
                 </View>
               </View>

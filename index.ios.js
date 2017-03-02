@@ -21,8 +21,9 @@ export default class whats_up_doc extends Component {
     return (
       <NavigatorIOS
         style={styles.container}
+        itemWrapperStyle={styles.navbar}
         initialRoute={{
-          title: 'Landing Page',
+          title: 'Home',
           component: TestLandingPage
         }}
       />
@@ -46,6 +47,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  navbar:{
+	  backgroundColor: 'transparent',
   },
 });
 
