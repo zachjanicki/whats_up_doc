@@ -26,6 +26,10 @@ export default class whats_up_doc extends Component {
           title: 'Home',
           component: TestLandingPage
         }}
+        navigationBarHidden={false}
+        shadowHidden={true}
+        titleTextColor={'white'}
+        barTintColor={'#7eece7'}
       />
     );
   }

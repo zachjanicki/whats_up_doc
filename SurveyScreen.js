@@ -16,13 +16,9 @@ import {
   ScrollView
 } from 'react-native';
 
-import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
-
 import LandingPage from './LandingPage';
 import Survey from './Survey';
 import qList from './questions.json';
-
-
 
 export default class SurveyScreen extends Component {
   constructor() {
@@ -31,7 +27,6 @@ export default class SurveyScreen extends Component {
       scrollViewXPos: 0,
       score: 0,
       cardNumber: 1,
-      img: './images/radio.png',
     }
   }
 
@@ -106,7 +101,6 @@ export default class SurveyScreen extends Component {
   }
 
   handlePress(answerValue, cardLocation, cardID) {
-	this.state.img = './images/radio_selected.png'
     if (cardID == 9) {
       // move on to next view
       var currentScore = this.state.score;

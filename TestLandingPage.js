@@ -26,23 +26,6 @@ var Sun = React.createClass({
     }
 })
 
-question = "How are you feeling today?";
-
-var Card = React.createClass({
-    render: function() {
-        return (
-            <View style={cardStyles.card}>
-            	<View style={cardStyles.questionBox}>
-            		<Text style={cardStyles.questionText}>{question.toUpperCase()}</Text>
-            	</View>
-            	<View style={cardStyles.optionsBox}>
-            		<Text style={cardStyles.optionsText}>Tap to type response</Text>
-            	</View>
-            </View>
-        )
-    }
-})
-
 var time = new Date().now;
 time = "5:11"
 
@@ -71,20 +54,21 @@ export default class TestLandingPage extends Component {
         	<View style={styles.status_bar}></View>
         	<View style={styles.sky}>
         		<Sun />
-        		<View style={styles.welcome}>
+        		<View style={styles.timing}>
         			<Text style={styles.primaryText}>{time}</Text>
         			<Text style={styles.secondaryText}>pm</Text>
 		        </View>
         	</View>
-        	<View style={styles.mountains}>
-        		<Image source={require('./images/mountains.png')} style={styles.image_mountains} />
-        	</View>
         	<View style={styles.foreground}>
-        		<Card />
+        		<View style={styles.welcome}>
+        			<Text style={styles.welcomeText}>good evening, john</Text>
+        			<Text style={styles.subText}>are you ready for your weekly checkup?</Text>
+        		</View>
         		<TouchableHighlight
-		          style={[cardStyles.questionBox, {backgroundColor: '#7eece7'}]}
+		          style={cardStyles.questionBox}
+		          underlayColor={'#fff'}
 		          onPress={() => this.handlePress(survey)}>
-		            <Text>To arrow survey view</Text>
+		            <Text style={styles.beginText}>BEGIN</Text>
 		        </TouchableHighlight>
         	</View>
         	<View style={styles.status_bar}></View>
@@ -140,10 +124,35 @@ const styles = StyleSheet.create({
     //alignItems: 'center',
     //backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    margin: 10,
+  timing: {
+	margin: 10,
+	marginTop: 30,
     backgroundColor: 'rgba(0,0,0,0)',
     flexDirection: 'row',
+  },
+  welcome: {
+    marginBottom: 30,
+    backgroundColor: 'rgba(0,0,0,0)',
+    flexDirection: 'column',
+  },
+  welcomeText:{
+	  fontSize: 1.1*fontSizer(screen_width),
+	  color: 'rgba(92,126,153,0.9)',
+	  fontWeight: '600',
+	  marginBottom: 10,
+	  lineHeight: 60,
+  },
+  subText:{
+	  fontSize: 0.3*fontSizer(screen_width),
+	  color: 'rgba(92,126,153,0.5)',
+	  fontWeight: '600',
+	  marginBottom: 10,
+  },
+  beginText:{
+	  fontSize: 0.3*fontSizer(screen_width),
+	  color: 'rgba(92,126,153,0.4)',
+	  fontWeight: '200',
+	  letterSpacing: 5,
   },
   primaryText: {
     fontSize: fontSizer(screen_width),
@@ -153,7 +162,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     backgroundColor: 'rgba(0,0,0,0)',
     color: '#ffffff',
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
   },
   secondaryText: {
     fontSize: 0.7*fontSizer(screen_width),
@@ -163,7 +172,8 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: 'rgba(255,255,255,0.5)',
     backgroundColor: 'rgba(0,0,0,0)',
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
+    marginTop: 20,
   },
   instructions: {
     textAlign: 'center',
@@ -196,18 +206,19 @@ const styles = StyleSheet.create({
   },
   foreground:{
 	flex: 8,
-	backgroundColor: 'rgba(255,255,255,0.5)',
+	backgroundColor: 'transparent',
   },
   sun: {
   	// Position
   	width: 1.2*fontSizer(screen_width),
     height: 1.2*fontSizer(screen_width),
     margin: 20,
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
     // Circle
     borderRadius: 100/2,
     // Color
-    backgroundColor: '#f9f190',
+    //backgroundColor: '#f9f190',
+    backgroundColor: 'transparent',
     // Outer glow
     shadowOffset:{
 		width: 0,
@@ -236,7 +247,7 @@ const cardStyles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'rgba(255,255,255,0.8)',
+		backgroundColor: 'rgba(255,255,255,0.4)',
 	},
 	questionText: {
     	fontFamily: 'Helvetica Neue',

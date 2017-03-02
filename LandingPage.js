@@ -33,6 +33,7 @@ export default class LandingPage extends Component {
         <Text style={styles.test_text}>Test text</Text>
         <TouchableHighlight
           style={styles.button}
+          underlayColor={'#fff'}
           onPress={() => this.handlePress(modal)}>
             <Text>To modal survey view</Text>
         </TouchableHighlight>
