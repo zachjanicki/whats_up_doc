@@ -64,7 +64,7 @@ export default class TestLandingPage extends Component {
 		          style={cardStyles.questionBox}
 		          underlayColor={'#fff'}
 		          onPress={() => this.handlePress(survey)}>
-		            <Text style={styles.beginText}>BEGIN</Text>
+		            <Text style={styles.beginText}>begin</Text>
 		        </TouchableHighlight>
         	</View>
         	<View style={styles.status_bar}></View>
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   welcomeText:{
 	  fontSize: 1.1*fontSizer(screen_width),
-	  color: 'rgba(92,126,153,0.9)',
+	  color: 'rgba(92,154,167,0.9)',
 	  fontWeight: '600',
 	  marginBottom: 10,
 	  lineHeight: 65,
@@ -146,9 +146,9 @@ const styles = StyleSheet.create({
   },
   beginText:{
 	  fontSize: 0.3*fontSizer(screen_width),
-	  color: 'rgba(92,126,153,0.4)',
-	  fontWeight: '200',
-	  letterSpacing: 3,
+	  color: 'white',
+	  fontWeight: '400',
+	  letterSpacing: 2,
   },
   primaryText: {
     fontSize: fontSizer(screen_width),
@@ -243,7 +243,7 @@ const cardStyles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'rgba(255,255,255,0.4)',
+		backgroundColor: 'rgba(106,208,139,0.9)',
 	},
 	questionText: {
     	fontFamily: 'Helvetica Neue',
