@@ -1,8 +1,7 @@
 # What's Up Doc
 
-![Home](current_screenshots/home.png)
-![Survey](current_screenshots/survey.png)
-<img src="current_screenshots/survey.png" width="48">
+<img src="current_screenshots/home.png" width="200">
+<img src="current_screenshots/survey.png" width="200">
 
 ----
 ## Overview
