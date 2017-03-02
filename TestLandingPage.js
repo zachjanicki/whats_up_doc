@@ -58,7 +58,7 @@ export default class TestLandingPage extends Component {
         	<View style={styles.foreground}>
         		<View style={styles.welcome}>
         			<Text style={styles.welcomeText}>good evening, john</Text>
-        			<Text style={styles.subText}>are you ready for your weekly checkup?</Text>
+        			<Text style={styles.subText}>are you ready for your daily checkup?</Text>
         		</View>
         		<TouchableHighlight
 		          style={cardStyles.questionBox}
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   margin:{
-	flex: 1,
+	flex: 2,
 	backgroundColor: 'red',
 	flexShrink: 0,
   },
