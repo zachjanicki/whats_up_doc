@@ -2,6 +2,7 @@
 
 ![Home](current_screenshots/home.png)
 ![Survey](current_screenshots/survey.png)
+<img src="current_screenshots/survey.png" width="48">
 
 ----
 ## Overview
