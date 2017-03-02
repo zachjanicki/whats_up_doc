@@ -501,13 +501,16 @@ const styles = StyleSheet.create({
 	textWrapper:{
 		flex: 4,
 		flexDirection: 'column',
+		justifyContent: 'center',
+		marginTop: 15,
 	},
 	optionsText: {
 		fontFamily: 'Helvetica Neue',
 		fontSize: 0.3*fontSizer(screen_width),
 		fontWeight: '300',
 		color: 'rgba(30,30,30,.6)',
-		margin: 0.3*fontSizer(screen_width),
+		marginLeft: 0.3*fontSizer(screen_width),
+		marginRight: 0.3*fontSizer(screen_width),
 	},
 	radio: {
 		flex: 0.5,
