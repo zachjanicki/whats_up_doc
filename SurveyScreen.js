@@ -458,14 +458,6 @@ const styles = StyleSheet.create({
 	card:{
 		flex: 1,
 		flexDirection: 'column',
-		// Outer glow
-	    shadowOffset:{
-			width: 0,
-		    height: 0,
-	    },
-	  shadowColor: 'white',
-	  shadowOpacity: 0.3,
-	  shadowRadius: 3,
 	},
 	questionBox:{
 		flex: 1,

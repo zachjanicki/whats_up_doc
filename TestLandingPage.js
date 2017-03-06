@@ -26,8 +26,17 @@ var Sun = React.createClass({
     }
 })
 
-var time = new Date().now;
-time = "5:11"
+timeOfDay = "evening"
+var now = new Date().getHours();
+if (now >= 0 && now < 12){
+	timeOfDay = "morning";
+} else if (now > 12 && now < 5) {
+	timeOfDay = "afternoon";
+} else {
+	timeOfDay = "evening"
+}
+
+
 
 import LandingPage from './LandingPage'
 import SurveyScreen from './SurveyScreen'
@@ -57,7 +66,7 @@ export default class TestLandingPage extends Component {
         	</View>
         	<View style={styles.foreground}>
         		<View style={styles.welcome}>
-        			<Text style={styles.welcomeText}>good evening, john</Text>
+        			<Text style={styles.welcomeText}>good {timeOfDay}, john</Text>
         			<Text style={styles.subText}>are you ready for your daily checkup?</Text>
         		</View>
         		<TouchableHighlight
@@ -204,40 +213,12 @@ const styles = StyleSheet.create({
 	flex: 8,
 	backgroundColor: 'transparent',
   },
-  sun: {
-  	// Position
-  	width: 1.2*fontSizer(screen_width),
-    height: 1.2*fontSizer(screen_width),
-    margin: 20,
-    alignSelf: 'flex-start',
-    // Circle
-    borderRadius: 100/2,
-    // Color
-    //backgroundColor: '#f9f190',
-    backgroundColor: 'transparent',
-    // Outer glow
-    shadowOffset:{
-		width: 0,
-	    height: 0,
-    },
-    shadowColor: 'white',
-    shadowOpacity: 1.0,
-    shadowRadius: 10,
-  },
 });
 
 const cardStyles = StyleSheet.create({
 	card:{
 		flex: 1,
 		flexDirection: 'column',
-		// Outer glow
-	    shadowOffset:{
-			width: 0,
-		    height: 0,
-	    },
-	    shadowColor: 'white',
-	    shadowOpacity: 0.3,
-	    shadowRadius: 3,
 	},
 	questionBox:{
 		flex: 1,
