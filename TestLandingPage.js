@@ -62,12 +62,12 @@ export default class TestLandingPage extends Component {
         <View style={styles.main}>
         	<View style={styles.status_bar}></View>
         	<View style={styles.sky}>
-        		
+
         	</View>
         	<View style={styles.foreground}>
         		<View style={styles.welcome}>
-        			<Text style={styles.welcomeText}>good {timeOfDay}, john</Text>
-        			<Text style={styles.subText}>are you ready for your daily checkup?</Text>
+        			<Text style={styles.welcomeText}>Good {timeOfDay}, john</Text>
+        			<Text style={styles.subText}>Are you ready for your daily checkup?</Text>
         		</View>
         		<TouchableHighlight
 		          style={cardStyles.questionBox}
