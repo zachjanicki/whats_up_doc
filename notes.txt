@@ -1,0 +1,12 @@
+USER PROFILE INFO
+  "info_provided": "false"
+  "name": "",
+  "age": "",
+  "doctor_name": "",
+  "doctor_phone_number": "",
+  "doctor_email": ""
+
+Survey scores will be stored as a key value pairs where the key is equal to the day of the year
+multiplied by the year. So a score of 20 on January 2nd, 2017 will look like {4034: 20}
+
+All other info will be as specified below USER PROFILE

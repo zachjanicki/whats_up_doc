@@ -15,8 +15,51 @@ import {
   NavigatorIOS,
   Animated,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage
 } from 'react-native';
+
+let UID123_object = {
+ name: 'Chris',
+ age: 30,
+ traits: {hair: 'brown', eyes: 'brown'},
+};
+// You only need to define what will be added or updated
+let UID123_delta = {
+ age: 31,
+ traits: {eyes: 'blue', shoe_size: 10}
+};
+/*  
+AsyncStorage.setItem('UID123', JSON.stringify(UID123_object), () => {
+  AsyncStorage.mergeItem('UID123', JSON.stringify(UID123_delta), () => {
+    AsyncStorage.getItem('UID124', (err, result) => {
+      if (err) {
+        console.log(err);
+        console.log("key does not exist");
+      }
+      console.log(result);
+      if (!result) {
+        console.log('no result');
+      }
+    });
+  });
+});
+
+AsyncStorage.clear((err) => {
+  console.log('data cleared');
+})
+*/
+var isInfoSetup = true;
+
+AsyncStorage.getItem('info_provided', (err, result) => {
+  if (err) {
+    console.log(err);
+  }
+  if (!result) {
+    console.log('no profile created yet');
+    isInfoSetup = false; // we need to create the user profile
+  }
+})
 
 var Sun = React.createClass({
     render: function() {
@@ -45,46 +88,52 @@ export default class TestLandingPage extends Component {
   handlePress(nextComp) {
     this.props.navigator.push(nextComp)
   }
-
   render() {
-
     const survey = {
       component: SurveyScreen,
       title: 'Survey Screen'
     };
-    return (
-      <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
-      <StatusBar barStyle="light-content" />
+    if (isInfoSetup) {
+      return (
+        <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
+        <StatusBar barStyle="light-content" />
 
-        <View style={styles.margin}>
+          <View style={styles.margin}>
 
-        </View>
-        <View style={styles.main}>
-        	<View style={styles.status_bar}></View>
-        	<View style={styles.sky}>
+          </View>
+          <View style={styles.main}>
+          	<View style={styles.status_bar}></View>
+          	<View style={styles.sky}>
 
-        	</View>
-        	<View style={styles.foreground}>
-        		<View style={styles.welcome}>
-        			<Text style={styles.welcomeText}>Good {timeOfDay}, john</Text>
-        			<Text style={styles.subText}>Are you ready for your daily checkup?</Text>
-        		</View>
-        		<TouchableHighlight
-		          style={cardStyles.questionBox}
-		          underlayColor={'#fff'}
-		          onPress={() => this.handlePress(survey)}>
-		            <Text style={styles.beginText}>begin</Text>
-		        </TouchableHighlight>
-        	</View>
-        	<View style={styles.status_bar}></View>
-        </View>
-        <View style={styles.margin}>
-        </View>
+          	</View>
+          	<View style={styles.foreground}>
+          		<View style={styles.welcome}>
+          			<Text style={styles.welcomeText}>Good {timeOfDay}, john</Text>
+          			<Text style={styles.subText}>Are you ready for your daily checkup?</Text>
+          		</View>
+          		<TouchableHighlight
+  		          style={cardStyles.questionBox}
+  		          underlayColor={'#fff'}
+  		          onPress={() => this.handlePress(survey)}>
+  		            <Text style={styles.beginText}>begin</Text>
+  		        </TouchableHighlight>
+          	</View>
+          	<View style={styles.status_bar}></View>
+          </View>
+          <View style={styles.margin}>
+          </View>
 
+        </Image>
+
+      );
+    } else { // create user profile
+      <Image source={require('./images/morning_breeze.png')}>
+        <Text>Welcome to whats up doc, the app to help you track your mental health</Text>
+        <Text>Please fill out the following information to begin</Text>
       </Image>
-
-    );
+    }
   }
+
 }
 
 var {screen_height, screen_width} = Dimensions.get('window');
