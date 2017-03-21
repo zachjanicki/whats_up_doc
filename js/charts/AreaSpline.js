@@ -44,7 +44,7 @@ type Props = {
   data: any
 };
 
-const margin = 20;
+const margin = 10;
 const AnimationDurationMs = 250;
 
 class AreaSpline extends React.Component {
@@ -58,10 +58,10 @@ class AreaSpline extends React.Component {
   }
 
   //TODO: expose this methods as part of the AreaSpline interface.
-  _Yvalue(item, index) { return -item.value; }
+  _Yvalue(item, index) { return -item.value*1.3; }
 
   //TODO: expose this methods as part of the AreaSpline interface.
-  _Xvalue(item, index) { return index*15; }
+  _Xvalue(item, index) { return index*30; }
 
   //TODO: expose this methods as part of the AreaSpline interface.
   _label(item, index) { return item.name; }

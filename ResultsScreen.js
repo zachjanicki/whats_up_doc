@@ -92,7 +92,7 @@ export default class ResultsScreen extends Component {
 	const height = Dimensions.get('window').height/3;
     const width = 5*Dimensions.get('window').width/6;
     return (
-      <Image source={require('./images/results_gradient.png')} style={styles.image_container}>
+      <Image source={require('./images/results_gradient_new.png')} style={styles.image_container}>
 	      	<View style={styles.space} />
         	<View style={styles.titleView}>
         		<Text style={styles.title}>Daily Checkup</Text>
