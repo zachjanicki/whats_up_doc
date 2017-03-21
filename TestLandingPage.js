@@ -40,6 +40,7 @@ if (now >= 0 && now < 12){
 
 import LandingPage from './LandingPage'
 import SurveyScreen from './SurveyScreen'
+import ResultsScreen from './ResultsScreen'
 
 export default class TestLandingPage extends Component {
   handlePress(nextComp) {
@@ -52,6 +53,12 @@ export default class TestLandingPage extends Component {
       component: SurveyScreen,
       title: 'Survey Screen'
     };
+    
+    const results = {
+      component: ResultsScreen,
+      title: 'Results'
+    };
+    
     return (
       <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
       <StatusBar barStyle="light-content" />
@@ -74,6 +81,12 @@ export default class TestLandingPage extends Component {
 		          underlayColor={'#fff'}
 		          onPress={() => this.handlePress(survey)}>
 		            <Text style={styles.beginText}>begin</Text>
+		        </TouchableHighlight>
+		        <TouchableHighlight
+		          style={cardStyles.questionBox}
+		          underlayColor={'#fff'}
+		          onPress={() => this.handlePress(results)}>
+		            <Text style={styles.beginText}>results</Text>
 		        </TouchableHighlight>
         	</View>
         	<View style={styles.status_bar}></View>
