@@ -61,7 +61,7 @@ var Sun = React.createClass({
 
 timeOfDay = "evening"
 var now = new Date().getHours();
-if (now >= 0 && now < 12){
+if (now >= 4 && now < 12){
 	timeOfDay = "morning";
 } else if (now > 12 && now < 5) {
 	timeOfDay = "afternoon";
@@ -69,18 +69,27 @@ if (now >= 0 && now < 12){
 	timeOfDay = "evening"
 }
 
-
-
 import LandingPage from './LandingPage'
 import SurveyScreen from './SurveyScreen'
+import ResultsScreen from './ResultsScreen'
+
+export function renderIf(condition, content) {
+    if (condition) {
+        return content;
+    } else {
+        return null;
+    }
+}
 
 export default class TestLandingPage extends Component {
-  getInitialState() {
-    return {
-      is_loading: true,
-      profile_exists: false
+	
+	constructor() {
+    super();
+    this.state = {
+      completedSurvey: false,
     }
   }
+
   handlePress(nextComp) {
     this.props.navigator.push(nextComp)
   }
@@ -110,65 +119,59 @@ export default class TestLandingPage extends Component {
       component: SurveyScreen,
       title: 'Survey Screen'
     };
+    
+    const results = {
+      component: ResultsScreen,
+      title: 'Results'
+    };
+   
+    
+    return (
+      <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
+      <StatusBar barStyle="light-content" />
 
-    if (!this.state.is_loading) {
-      return (
-        <Text style={{marginTop: 100}}>Im loading...</Text>
-      )
-    } else if (this.state.is_loading && !this.state.profile_exists) {
-      return (
-        <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
-        <StatusBar barStyle="light-content" />
+        <View style={styles.margin}>
 
-          <View style={styles.margin}>
+        </View>
+        <View style={styles.main}>
+        	<View style={styles.status_bar}></View>
+        	<View style={styles.sky}>
+        		
+        	</View>
+        	<View style={styles.foreground}>
+        		<View style={styles.welcome}>
+        			<Text style={styles.welcomeText}>good {timeOfDay}, john</Text>
+        			<Text style={styles.subText}>are you ready for your daily checkup?</Text>
+        		</View>
+	                {renderIf(!this.state.completedSurvey, 
+	                <TouchableHighlight
+				          style={cardStyles.questionBox}
+				          underlayColor={'#fff'}
+				          onPress={() => this.handlePress(survey)}>
+				            <Text style={styles.beginText}>begin</Text>
+				        </TouchableHighlight>
+			            
+		                )}
+	                {renderIf(this.state.completedSurvey, 
 
-          </View>
-          <View style={styles.main}>
-          	<View style={styles.status_bar}></View>
-          	<View style={styles.sky}>
+			            <TouchableHighlight
+				          style={[cardStyles.questionBox, {backgroundColor: '#409bf9'}]}
+				          underlayColor={'#fff'}
+				          onPress={() => this.handlePress(results)}>
+				            <Text style={styles.beginText}>results</Text>
+				        </TouchableHighlight>
 
-          	</View>
-          	<View style={styles.foreground}>
-          		<View style={styles.welcome}>
-          			<Text style={styles.welcomeText}>Good {timeOfDay}, john</Text>
-          			<Text style={styles.subText}>Are you ready for your daily checkup?</Text>
-          		</View>
-          		<TouchableHighlight
-  		          style={cardStyles.questionBox}
-  		          underlayColor={'#fff'}
-  		          onPress={() => this.handlePress(survey)}>
-  		            <Text style={styles.beginText}>begin</Text>
-  		        </TouchableHighlight>
-          	</View>
-          	<View style={styles.status_bar}></View>
-          </View>
-          <View style={styles.margin}>
-          </View>
+	                )}
 
-        </Image>
+        	</View>
+        	<View style={styles.status_bar}></View>
+        </View>
+        <View style={styles.margin}>
+        </View>
 
-      );
-    } else { // create user profile
-      return (
-        <Image source={require('./images/morning_breeze.png')}>
-          <View style={{marginTop: 50}}>
-            <Text>Welcome to whats up doc, the app to help you track your mental health</Text>
-            <Text>Please fill out the following information to begin</Text>
-            <Text>Name:</Text>
-            <TextInput style={{height: 40, borderColor: 'gray', borderWidth: 1}} ref='_textInputName'></TextInput>
-            <Text>Age:</Text>
-            <TextInput style={{height: 40, borderColor: 'gray', borderWidth: 1}} ref='_textInputAge'></TextInput>
-            <Text>Doctor's Name:</Text>
-            <TextInput style={{height: 40, borderColor: 'gray', borderWidth: 1}} ref='_textInputDoctorsName'></TextInput>
-            <Text>Doctors's Email:</Text>
-            <TextInput style={{height: 40, borderColor: 'gray', borderWidth: 1}} ref='_textInputDoctorsEmail'></TextInput>
-            <TouchableHighlight onPress={() => {this.handleSubmit()}}>
-              <Text>Submit</Text>
-            </TouchableHighlight>
-          </View>
-        </Image>
-      )
-    }
+      </Image>
+
+    );
   }
 
 }

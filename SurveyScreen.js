@@ -20,6 +20,9 @@ import LandingPage from './LandingPage';
 import Survey from './Survey';
 import qList from './questions.json';
 
+const buttonNotClicked = require('./images/radio.png');
+const buttonClicked = require('./images/radio_selected.png');
+
 export default class SurveyScreen extends Component {
   constructor() {
     super();
@@ -27,6 +30,10 @@ export default class SurveyScreen extends Component {
       scrollViewXPos: 0,
       score: 0,
       cardNumber: 1,
+      sendImgUrl1: buttonNotClicked,
+      sendImgUrl2: buttonNotClicked,
+      sendImgUrl3: buttonNotClicked,
+      sendImgUrl4: buttonNotClicked,
     }
   }
 
@@ -114,6 +121,9 @@ export default class SurveyScreen extends Component {
         cardNumber: currentCardNumber
       });
       console.log(this.state);
+      // Finished
+      this.props.navigator.pop();
+      
     } else {
       // update state, slide over
       var currentScore = this.state.score;
@@ -121,14 +131,46 @@ export default class SurveyScreen extends Component {
       var currentX = 347 * (cardID + 1); // this will be adjusted later with a function that gets us the screen width
       var currentCardNumber = this.state.cardNumber;
       currentCardNumber = cardLocation + 1;
+      switch (answerValue) {
+		    case 1:
+		        this.setState({sendImgUrl1: buttonClicked,
+			        sendImgUrl2: buttonNotClicked,
+			        sendImgUrl3: buttonNotClicked,
+			        sendImgUrl4: buttonNotClicked,
+		        });
+		        break;
+		    case 2:
+		        this.setState({sendImgUrl2: buttonClicked,
+			        sendImgUrl1: buttonNotClicked,
+			        sendImgUrl3: buttonNotClicked,
+			        sendImgUrl4: buttonNotClicked,});
+		        break;
+		    case 3:
+		        this.setState({sendImgUrl3: buttonClicked,
+			        sendImgUrl2: buttonNotClicked,
+			        sendImgUrl1: buttonNotClicked,
+			        sendImgUrl4: buttonNotClicked,});
+		        break;
+		    case 4:
+		        this.setState({sendImgUrl4: buttonClicked,
+			        sendImgUrl2: buttonNotClicked,
+			        sendImgUrl3: buttonNotClicked,
+			        sendImgUrl1: buttonNotClicked,});
+		        break;
+		}
       this.setState({
         score: currentScore,
         scrollViewXPos: currentX,
-        cardNumber: currentCardNumber
+        cardNumber: currentCardNumber,
       });
       this.refs._scrollView.scrollTo({x: currentX});
     }
-
+/*
+      this.setState({sendImgUrl1: buttonNotClicked});
+      this.setState({sendImgUrl2: buttonNotClicked});
+      this.setState({sendImgUrl3: buttonNotClicked});
+      this.setState({sendImgUrl4: buttonNotClicked});
+*/
   }
 
 //ref={(scrollView) => { _scrollView = scrollView; }}
@@ -154,31 +196,31 @@ export default class SurveyScreen extends Component {
                 <View style={styles.optionsBox}>
                   <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
 	                  <View style={styles.line}>
-	                  	<Image source={require('./images/radio_selected.png')} style={styles.radio} />
+	                  	<Image source={this.state.sendImgUrl1} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>{cardQuestion[Object.keys(cardQuestion)[0]][0]}</Text>
 	                    </View>
 	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                  <TouchableHighlight onPress={() => {this.handlePress(2, cardLocation, cardLocation)}} underlayColor={'#fff'}>
 	                  <View style={styles.line}>
-	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<Image source={this.state.sendImgUrl2} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>{cardQuestion[Object.keys(cardQuestion)[0]][1]}</Text>
 	                    </View>
 	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                  <TouchableHighlight onPress={() => {this.handlePress(3, cardLocation, cardLocation)}} underlayColor={'#fff'}>
 	                  <View style={styles.line}>
-	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<Image source={this.state.sendImgUrl3} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>{cardQuestion[Object.keys(cardQuestion)[0]][2]}</Text>
 	                    </View>
 	                  </View>
                   </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                  <TouchableHighlight onPress={() => {this.handlePress(4, cardLocation, cardLocation)}} underlayColor={'#fff'}>
 	                  <View style={styles.line}>
-	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<Image source={this.state.sendImgUrl4} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>{cardQuestion[Object.keys(cardQuestion)[0]][3]}</Text>
 	                    </View>
@@ -202,7 +244,7 @@ export default class SurveyScreen extends Component {
                   <Text style={styles.optionsText}>{numericSymptomText}</Text>
                   <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
                     <View style={styles.line}>
-	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<Image source={this.state.sendImgUrl1} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>1</Text>
 	                    </View>
@@ -210,7 +252,7 @@ export default class SurveyScreen extends Component {
                   </TouchableHighlight>
                   <TouchableHighlight onPress={() => {this.handlePress(2, cardLocation, cardLocation)}} underlayColor={'#fff'}>
                     <View style={styles.line}>
-	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<Image source={this.state.sendImgUrl2} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>2</Text>
 	                    </View>
@@ -218,7 +260,7 @@ export default class SurveyScreen extends Component {
                   </TouchableHighlight>
                   <TouchableHighlight onPress={() => {this.handlePress(3, cardLocation, cardLocation)}} underlayColor={'#fff'}>
                     <View style={styles.line}>
-	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<Image source={this.state.sendImgUrl3} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>3</Text>
 	                    </View>
@@ -226,7 +268,7 @@ export default class SurveyScreen extends Component {
                   </TouchableHighlight>
                   <TouchableHighlight onPress={() => {this.handlePress(4, cardLocation, cardLocation)}} underlayColor={'#fff'}>
                     <View style={styles.line}>
-	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<Image source={this.state.sendImgUrl4} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>4</Text>
 	                    </View>
@@ -250,7 +292,7 @@ export default class SurveyScreen extends Component {
                   <Text style={styles.optionsText}>{numericDescriptionText}</Text>
                   <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
                     <View style={styles.line}>
-	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<Image source={this.state.sendImgUrl1} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>1</Text>
 	                    </View>
@@ -258,7 +300,7 @@ export default class SurveyScreen extends Component {
                   </TouchableHighlight>
                   <TouchableHighlight onPress={() => {this.handlePress(2, cardLocation, cardLocation)}} underlayColor={'#fff'}>
                     <View style={styles.line}>
-	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<Image source={this.state.sendImgUrl2} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>2</Text>
 	                    </View>
@@ -266,7 +308,7 @@ export default class SurveyScreen extends Component {
                   </TouchableHighlight>
                   <TouchableHighlight onPress={() => {this.handlePress(3, cardLocation, cardLocation)}} underlayColor={'#fff'}>
                     <View style={styles.line}>
-	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<Image source={this.state.sendImgUrl3} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>3</Text>
 	                    </View>
@@ -274,7 +316,7 @@ export default class SurveyScreen extends Component {
                   </TouchableHighlight>
                   <TouchableHighlight onPress={() => {this.handlePress(4, cardLocation, cardLocation)}} underlayColor={'#fff'}>
                     <View style={styles.line}>
-	                  	<Image source={require('./images/radio.png')} style={styles.radio} />
+	                  	<Image source={this.state.sendImgUrl4} style={styles.radio} />
 	                  	<View style={styles.textWrapper}>
 	                    	<Text style={styles.optionsText}>4</Text>
 	                    </View>
@@ -315,34 +357,34 @@ export default class SurveyScreen extends Component {
               {/* Note: comments in JSX part go in brackets like this.*/}
 
               <View>
-                {singleCard(0, 'worded', 0)}
+                {new singleCard(0, 'worded', 0)}
               </View>
               <View>
-                {singleCard(4, 'worded', 1)}
+                {new singleCard(4, 'worded', 1)}
               </View>
               <View>
-                {singleCard(1, 'worded', 2)}
+                {new singleCard(1, 'worded', 2)}
               </View>
               <View>
-                {singleCard(5, 'numericSymptom', 3)}
+                {new singleCard(5, 'numericSymptom', 3)}
               </View>
               <View>
-                {singleCard(2, 'worded', 4)}
+                {new singleCard(2, 'worded', 4)}
               </View>
               <View>
-                {singleCard(6, 'numericSymptom', 5)}
+                {new singleCard(6, 'numericSymptom', 5)}
               </View>
               <View>
-                {singleCard(3, 'worded', 6)}
+                {new singleCard(3, 'worded', 6)}
               </View>
               <View>
-                {singleCard(7, 'numericDescription', 7)}
+                {new singleCard(7, 'numericDescription', 7)}
               </View>
               <View>
-                {singleCard(8, 'numericDescription', 8)}
+                {new singleCard(8, 'numericDescription', 8)}
               </View>
               <View>
-                {singleCard(9, 'numericDescription', 9)}
+                {new singleCard(9, 'numericDescription', 9)}
               </View>
 
             </ScrollView>
