@@ -28,7 +28,7 @@ var Sun = React.createClass({
 
 timeOfDay = "evening"
 var now = new Date().getHours();
-if (now >= 0 && now < 12){
+if (now >= 4 && now < 12){
 	timeOfDay = "morning";
 } else if (now > 12 && now < 5) {
 	timeOfDay = "afternoon";
