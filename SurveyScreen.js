@@ -121,6 +121,8 @@ export default class SurveyScreen extends Component {
         cardNumber: currentCardNumber
       });
       console.log(this.state);
+      // Finished
+      this.props.navigator.pop();
       
     } else {
       // update state, slide over
