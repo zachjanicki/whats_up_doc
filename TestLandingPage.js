@@ -86,7 +86,11 @@ export default class TestLandingPage extends Component {
 	constructor() {
     super();
     this.state = {
+	  completedSurvey: true,
+      profile_loaded: false,
+      is_loading: true
     }
+    this.loadData();
   }
 
   handlePress(nextComp) {
@@ -117,12 +121,7 @@ export default class TestLandingPage extends Component {
     }
   }
   render() {
-    this.state = {
-      completedSurvey: true,
-      profile_loaded: false,
-      is_loading: true
-    };
-    this.loadData();
+    
     const survey = {
       component: SurveyScreen,
       title: 'Survey Screen'
