@@ -82,11 +82,10 @@ export function renderIf(condition, content) {
 }
 
 export default class TestLandingPage extends Component {
-	
+
 	constructor() {
     super();
     this.state = {
-      completedSurvey: false,
     }
   }
 
@@ -99,33 +98,46 @@ export default class TestLandingPage extends Component {
     }
     console.log(this.refs._textInputAge.value);
   }
+  async loadData() {
+    try {
+      console.log('Loading data...');
+      const value = await AsyncStorage.getItem('info_provided');
+      if (value !== null){
+        // We have data!!
+        console.log(value);
+      } else {
+        console.log('no profile created yet');
+        this.setState({
+          profile_exists: false,
+          is_loading: false,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   render() {
     this.state = {
+      completedSurvey: true,
       profile_loaded: false,
       is_loading: true
     };
-    AsyncStorage.getItem('info_provided', (err, result) => {
-      if (err) {
-        console.log(err);
-      } else if (!result) {
-        console.log('no profile created yet');
-        this.setState({
-          profile_exists: false
-        });
-      }
-    });
-
+    this.loadData();
     const survey = {
       component: SurveyScreen,
       title: 'Survey Screen'
     };
-    
+
     const results = {
       component: ResultsScreen,
       title: 'Results'
     };
-   
-    
+
+    if (this.state.is_loading) {
+      return (
+        <Image source={require('./images/morning_breeze.png')} style={styles.image_container}></Image>
+      )
+    } else {
     return (
       <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
       <StatusBar barStyle="light-content" />
@@ -136,23 +148,23 @@ export default class TestLandingPage extends Component {
         <View style={styles.main}>
         	<View style={styles.status_bar}></View>
         	<View style={styles.sky}>
-        		
+
         	</View>
         	<View style={styles.foreground}>
         		<View style={styles.welcome}>
         			<Text style={styles.welcomeText}>good {timeOfDay}, john</Text>
         			<Text style={styles.subText}>are you ready for your daily checkup?</Text>
         		</View>
-	                {renderIf(!this.state.completedSurvey, 
+	                {renderIf(!this.state.completedSurvey,
 	                <TouchableHighlight
 				          style={cardStyles.questionBox}
 				          underlayColor={'#fff'}
 				          onPress={() => this.handlePress(survey)}>
 				            <Text style={styles.beginText}>begin</Text>
 				        </TouchableHighlight>
-			            
+
 		                )}
-	                {renderIf(this.state.completedSurvey, 
+	                {renderIf(this.state.completedSurvey,
 
 			            <TouchableHighlight
 				          style={[cardStyles.questionBox, {backgroundColor: '#409bf9'}]}
@@ -172,6 +184,7 @@ export default class TestLandingPage extends Component {
       </Image>
 
     );
+  }
   }
 
 }
