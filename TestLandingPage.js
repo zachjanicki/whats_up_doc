@@ -66,7 +66,7 @@ if (now >= 4 && now < 12){
 } else if (now > 12 && now < 5) {
 	timeOfDay = "afternoon";
 } else {
-	timeOfDay = "evening"
+	timeOfDay = "evening";
 }
 
 import LandingPage from './LandingPage'
