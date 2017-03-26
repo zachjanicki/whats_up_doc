@@ -119,7 +119,7 @@ export default class TestLandingPage extends Component {
       const isComplete = await AsyncStorage.getItem(date_key);
       if (isComplete == "true") {
         this.setState({
-          completedSurvey: false,
+          completedSurvey: true,
         });
       }
       console.log(isComplete);
