@@ -20,37 +20,6 @@ import {
   TextInput,
 } from 'react-native';
 
-let UID123_object = {
- name: 'Chris',
- age: 30,
- traits: {hair: 'brown', eyes: 'brown'},
-};
-// You only need to define what will be added or updated
-let UID123_delta = {
- age: 31,
- traits: {eyes: 'blue', shoe_size: 10}
-};
-/*
-AsyncStorage.setItem('UID123', JSON.stringify(UID123_object), () => {
-  AsyncStorage.mergeItem('UID123', JSON.stringify(UID123_delta), () => {
-    AsyncStorage.getItem('UID124', (err, result) => {
-      if (err) {
-        console.log(err);
-        console.log("key does not exist");
-      }
-      console.log(result);
-      if (!result) {
-        console.log('no result');
-      }
-    });
-  });
-});
-
-AsyncStorage.clear((err) => {
-  console.log('data cleared');
-})
-*/
-
 var Sun = React.createClass({
     render: function() {
         return (
@@ -91,17 +60,46 @@ export default class TestLandingPage extends Component {
       is_loading: false
     }
     this.isSurveyCompleted();
-    //this.loadData();
+    this.loadProfile();
   }
 
   handlePress(nextComp) {
     this.props.navigator.push(nextComp)
   }
-  handleSubmit() {
-    if (!this.refs._textInputAge.value) {
-      console.log('no age provided!');
+  async handleSubmit() {
+    if (!this.state.username || !this.state.age || !this.state.doctorName || !this.state.doctorEmail) {
+      console.log("missing data");
+    } else {
+      try {
+        await AsyncStorage.setItem("username", this.state.username);
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        await AsyncStorage.setItem("age", this.state.age);
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        await AsyncStorage.setItem("doctorName", this.state.doctorName);
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        await AsyncStorage.setItem("doctorEmail", this.state.doctorEmail);
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        await AsyncStorage.setItem("profile_exists", "true");
+      } catch (error) {
+        console.log(error);
+      }
+      console.log("saved all data");
+      this.setState({
+        profile_exists: true
+      });
     }
-    console.log(this.refs._textInputAge.value);
   }
 
   async isSurveyCompleted() {
@@ -110,6 +108,7 @@ export default class TestLandingPage extends Component {
     var diff = today - start;
     var oneDay = 1000 * 60 * 60 * 24;
     var day = Math.floor(diff / oneDay);
+    day++;
     console.log("==========");
     console.log(today.getFullYear());
     console.log(day);
@@ -130,26 +129,66 @@ export default class TestLandingPage extends Component {
     }
   }
 
-  /*
-  async loadData() {
+  async loadProfile() {
     try {
-      console.log('Loading data...');
-      const value = await AsyncStorage.getItem('info_provided');
-      if (value !== null){
-        // We have data!!
-        console.log(value);
-      } else {
-        console.log('no profile created yet');
+      const profile = await AsyncStorage.getItem('profile_exists');
+      if (!profile) {
+        // want to load the profile creation screen
         this.setState({
           profile_exists: false,
           is_loading: false,
-        });
+        })
+      } else {
+        // load regular app screen
+        this.setState({
+          profile_exists: true,
+          is_loading: false
+        })
       }
     } catch (error) {
       console.log(error);
     }
+    try {
+      const username = await AsyncStorage.getItem('username');
+      this.setState({
+        username: username
+      });
+    } catch (error) {
+      console.log(error)
+    }
+    try {
+      const age = await AsyncStorage.getItem('age');
+      this.setState({
+        age: age
+      });
+    } catch (error) {
+      console.log(error)
+    }
+    try {
+      const doctorName = await AsyncStorage.getItem('doctorName');
+      this.setState({
+        doctorName: doctorName
+      });
+    } catch (error) {
+      console.log(error)
+    }
+    try {
+      const doctorEmail = await AsyncStorage.getItem('doctorEmail');
+      this.setState({
+        doctorEmail: doctorEmail
+      });
+    } catch (error) {
+      console.log(error)
+    }
   }
-  */
+
+  renderSubtext(completedSurvey) {
+    if (!completedSurvey) {
+      return "Are you ready for your daily checkup?";
+    } else {
+      return "Take a look at your progess";
+    }
+  }
 
   render() {
 
@@ -167,56 +206,91 @@ export default class TestLandingPage extends Component {
       return (
         <Image source={require('./images/morning_breeze.png')} style={styles.image_container}></Image>
       )
+    }
+
+    if (this.state.profile_exists) {
+      // load regular home page
+      return (
+        <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
+        <StatusBar barStyle="light-content" />
+
+          <View style={styles.margin}>
+
+          </View>
+          <View style={styles.main}>
+          	<View style={styles.status_bar}></View>
+          	<View style={styles.sky}>
+
+          	</View>
+          	<View style={styles.foreground}>
+          		<View style={styles.welcome}>
+          			<Text style={styles.welcomeText}>Good {timeOfDay}, {this.state.username}</Text>
+          			<Text style={styles.subText}>{this.renderSubtext(this.state.completedSurvey)}</Text>
+          		</View>
+  	                {renderIf(!this.state.completedSurvey,
+  	                <TouchableHighlight
+  				          style={cardStyles.questionBox}
+  				          underlayColor={'#fff'}
+  				          onPress={() => this.handlePress(survey)}>
+  				            <Text style={styles.beginText}>Begin</Text>
+  				        </TouchableHighlight>
+
+  		                )}
+  	                {renderIf(this.state.completedSurvey,
+
+  			            <TouchableHighlight
+  				          style={[cardStyles.questionBox, {backgroundColor: '#409bf9'}]}
+  				          underlayColor={'#fff'}
+  				          onPress={() => this.handlePress(results)}>
+  				            <Text style={styles.beginText}>results</Text>
+  				        </TouchableHighlight>
+
+  	                )}
+
+          	</View>
+          	<View style={styles.status_bar}></View>
+          </View>
+          <View style={styles.margin}>
+          </View>
+
+        </Image>
+
+      );
     } else {
-    return (
-      <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
-      <StatusBar barStyle="light-content" />
-
-        <View style={styles.margin}>
-
-        </View>
-        <View style={styles.main}>
-        	<View style={styles.status_bar}></View>
-        	<View style={styles.sky}>
-
-        	</View>
-        	<View style={styles.foreground}>
-        		<View style={styles.welcome}>
-        			<Text style={styles.welcomeText}>Good {timeOfDay}, Chris</Text>
-        			<Text style={styles.subText}>Are you ready for your daily checkup?</Text>
-        		</View>
-	                {renderIf(!this.state.completedSurvey,
-	                <TouchableHighlight
-				          style={cardStyles.questionBox}
-				          underlayColor={'#fff'}
-				          onPress={() => this.handlePress(survey)}>
-				            <Text style={styles.beginText}>Begin</Text>
-				        </TouchableHighlight>
-
-		                )}
-	                {renderIf(this.state.completedSurvey,
-
-			            <TouchableHighlight
-				          style={[cardStyles.questionBox, {backgroundColor: '#409bf9'}]}
-				          underlayColor={'#fff'}
-				          onPress={() => this.handlePress(results)}>
-				            <Text style={styles.beginText}>results</Text>
-				        </TouchableHighlight>
-
-	                )}
-
-        	</View>
-        	<View style={styles.status_bar}></View>
-        </View>
-        <View style={styles.margin}>
-        </View>
-
-      </Image>
-
-    );
+      // load profile creation screen
+      return (
+        <Image source={require('./images/morning_breeze.png')}>
+          <View style={{marginTop: 50}}>
+            <Text>Welcome to whats up doc, the app to help you track your mental health</Text>
+            <Text>Please fill out the following information to begin</Text>
+            <Text>Name:</Text>
+            <TextInput
+              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              ref='_textInputName'
+              onChangeText={(username) => this.setState({username})}></TextInput>
+            <Text>Age:</Text>
+            <TextInput
+              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              ref='_textInputAge'
+              onChangeText={(age) => this.setState({age})}></TextInput>
+            <Text>Doctor's Name:</Text>
+            <TextInput
+              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              ref='_textInputDoctorsName'
+              onChangeText={(doctorName) => this.setState({doctorName})}></TextInput>
+            <Text>Doctors's Email:</Text>
+            <TextInput
+              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              ref='_textInputDoctorsEmail'
+              onChangeText={(doctorEmail) => this.setState({doctorEmail})}></TextInput>
+            <TouchableHighlight onPress={() => {this.handleSubmit()}}>
+              <Text>Submit</Text>
+            </TouchableHighlight>
+          </View>
+        </Image>
+      );
+    }
   }
-  }
-
 }
 
 var {screen_height, screen_width} = Dimensions.get('window');
