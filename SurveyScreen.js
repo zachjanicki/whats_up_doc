@@ -121,16 +121,17 @@ export default class SurveyScreen extends Component {
         scrollViewXPos: currentX,
         cardNumber: currentCardNumber
       });
-      console.log(this.state);
       // Finished
       var now = new Date();
       var start = new Date(now.getFullYear(), 0, 0);
       var diff = now - start;
       var oneDay = 1000 * 60 * 60 * 24;
       var day = Math.floor(diff / oneDay);
+      console.log(day, now.getFullYear());
       var date_key = day * now.getFullYear();
       try {
-        await AsyncStorage.setItem(Number.toString(date_key) + "_surveyCompleted", "true");
+        console.log("Date key from survey page is: " + date_key.toString());
+        await AsyncStorage.setItem(date_key.toString() + "_surveyCompleted", "true");
         console.log("data saved!!");
       } catch (error) {
         console.log(error);

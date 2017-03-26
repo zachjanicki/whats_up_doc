@@ -69,13 +69,6 @@ if (now >= 4 && now < 12){
 	timeOfDay = "evening";
 }
 
-var today = new Date();
-var start = new Date(today.getFullYear(), 0, 0);
-var diff = now - start;
-var oneDay = 1000 * 60 * 60 * 24;
-var day = Math.floor(diff / oneDay);
-var date_key = Number.toString(day * today.getFullYear()) + "_surveyCompleted";
-
 import LandingPage from './LandingPage'
 import SurveyScreen from './SurveyScreen'
 import ResultsScreen from './ResultsScreen'
@@ -112,12 +105,23 @@ export default class TestLandingPage extends Component {
   }
 
   async isSurveyCompleted() {
+    var today = new Date();
+    var start = new Date(today.getFullYear(), 0, 0);
+    var diff = today - start;
+    var oneDay = 1000 * 60 * 60 * 24;
+    var day = Math.floor(diff / oneDay);
+    console.log("==========");
+    console.log(today.getFullYear());
+    console.log(day);
+    console.log("==========");
+    var date_key = (day * today.getFullYear()).toString() + "_surveyCompleted";
     try {
       console.log("checking if survey is completed");
-      const isComplete = await AsyncStorage.getItem(Number.toString(date_key));
+      console.log("Date key from landing page is: " + date_key.toString());
+      const isComplete = await AsyncStorage.getItem(date_key);
       if (isComplete == "true") {
         this.setState({
-          completedSurvey: true
+          completedSurvey: true,
         });
       }
       console.log(isComplete);
