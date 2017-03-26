@@ -108,7 +108,6 @@ export default class TestLandingPage extends Component {
     var diff = today - start;
     var oneDay = 1000 * 60 * 60 * 24;
     var day = Math.floor(diff / oneDay);
-    day++;
     console.log("==========");
     console.log(today.getFullYear());
     console.log(day);
@@ -120,7 +119,7 @@ export default class TestLandingPage extends Component {
       const isComplete = await AsyncStorage.getItem(date_key);
       if (isComplete == "true") {
         this.setState({
-          completedSurvey: true,
+          completedSurvey: false,
         });
       }
       console.log(isComplete);

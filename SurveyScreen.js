@@ -30,11 +30,24 @@ export default class SurveyScreen extends Component {
     this.state = {
       scrollViewXPos: 0,
       score: 0,
-      cardNumber: 1,
+      cardNumber: 0,
       sendImgUrl1: buttonNotClicked,
       sendImgUrl2: buttonNotClicked,
       sendImgUrl3: buttonNotClicked,
       sendImgUrl4: buttonNotClicked,
+    }
+  }
+
+  selectBoolQuestion(cardID) {
+    switch (cardID) {
+      case 10:
+        return "Did you exercise today?";
+        break;
+      case 11:
+        return "Did you sleep well last night?";
+        break;
+      case 12:
+        return "If you are prescribed any medications, did you take them today?"
     }
   }
 
@@ -109,7 +122,7 @@ export default class SurveyScreen extends Component {
   }
 
   async handlePress(answerValue, cardLocation, cardID) {
-    if (cardID == 9) {
+    if (cardID == 12) {
       // move on to next view
       var currentScore = this.state.score;
       currentScore += answerValue;
@@ -119,15 +132,23 @@ export default class SurveyScreen extends Component {
       this.setState({
         score: currentScore,
         scrollViewXPos: currentX,
-        cardNumber: currentCardNumber
+        cardNumber: currentCardNumber,
       });
+      if (answerValue == 1) {
+        this.setState({
+          medication: true
+        });
+      } else {
+        this.setState({
+          medication: false
+        });
+      }
       // Finished
       var now = new Date();
       var start = new Date(now.getFullYear(), 0, 0);
       var diff = now - start;
       var oneDay = 1000 * 60 * 60 * 24;
       var day = Math.floor(diff / oneDay);
-      console.log(day, now.getFullYear());
       var date_key = day * now.getFullYear();
       try {
         console.log("Date key from survey page is: " + date_key.toString());
@@ -136,9 +157,53 @@ export default class SurveyScreen extends Component {
       } catch (error) {
         console.log(error);
       }
+      try {
+        console.log(this.state.score);
+        await AsyncStorage.setItem(date_key.toString() + "_surveyScore", this.state.score.toString());
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        await AsyncStorage.setItem(date_key.toString() + "_surveyMedication", this.state.medication.toString());
+      } catch (error) {
+        console.log(error)
+      }
+      try {
+        await AsyncStorage.setItem(date_key.toString() + "_surveyExercise", this.state.exercise.toString());
+      } catch (error) {
+        console.log(error)
+      }
+      try {
+        await AsyncStorage.setItem(date_key.toString() + "_surveySleep", this.state.sleep.toString());
+      } catch (error) {
+        console.log(error)
+      }
+
       this.props.navigator.pop();
+      return;
 
     } else {
+      if (cardID == 10) {
+        if (answerValue == 1) {
+          this.setState({
+            exercise: true
+          });
+        } else {
+          this.setState({
+            exercise: false
+          });
+        }
+      } else if (cardID == 11) {
+        if (answerValue == 1) {
+          this.setState({
+            sleep: true
+          });
+        } else {
+          this.setState({
+            sleep: false
+          });
+        }
+      }
       // update state, slide over
       var currentScore = this.state.score;
       currentScore += answerValue;
@@ -193,6 +258,36 @@ export default class SurveyScreen extends Component {
   render() {
     let qRadioSelectionText = "Please select the sentence which most applies to you";
     var _scrollView: ScrollView;
+    const booleanQuestionCard = (cardID, cardLocation) => {
+      return (
+        <View style={styles.cardWrapper}>
+          <View style={styles.margin} />
+            <View style={styles.card}>
+              <View style={styles.questionBox}>
+                <Text style={styles.questionText}>{this.selectBoolQuestion(cardID)}</Text>
+              </View>
+              <View style={styles.optionsBox}>
+                <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                  <View style={styles.line}>
+                    <Image source={this.state.sendImgUrl1} style={styles.radio} />
+                    <View style={styles.textWrapper}>
+                      <Text style={styles.optionsText}>Yes</Text>
+                    </View>
+                  </View>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={() => {this.handlePress(2, cardLocation, cardLocation)}} underlayColor={'#fff'}>
+                  <View style={styles.line}>
+                    <Image source={this.state.sendImgUrl2} style={styles.radio} />
+                    <View style={styles.textWrapper}>
+                      <Text style={styles.optionsText}>No</Text>
+                    </View>
+                  </View>
+                </TouchableHighlight>
+              </View>
+            </View>
+        </View>
+      )
+    }
     const singleCard = (cardID, qType, cardLocation) => {
       // qtype is either "worded", "numericSymptom", or "numericDescription"
       // question is a JSON object
@@ -350,7 +445,7 @@ export default class SurveyScreen extends Component {
       		<View style={styles.space} />
       		<View style={styles.counter}>
       			<Text style={styles.primaryText} ref='_cardNumberText'>{this.state.cardNumber}</Text>
-      			<Text style={styles.secondaryText}>/10</Text>
+      			<Text style={styles.secondaryText}>/12</Text>
             </View>
       	</View>
       	{/*
@@ -400,6 +495,15 @@ export default class SurveyScreen extends Component {
               <View>
                 {new singleCard(9, 'numericDescription', 9)}
               </View>
+              <View>
+                {new booleanQuestionCard(10, 10)}
+              </View>
+              <View>
+                {new booleanQuestionCard(11, 11)}
+              </View>
+              <View>
+                {new booleanQuestionCard(12, 12)}
+              </View>
 
             </ScrollView>
         </View>
@@ -408,13 +512,6 @@ export default class SurveyScreen extends Component {
     )
   }
 }
-
-/*
-<Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.sadness} onFCall={this.testFunction} scrollRef={this.refs}/>
-<Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.future} onFCall={this.testFunction} scrollRef={this.refs}/>
-<Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.failure} onFCall={this.testFunction} scrollRef={this.refs}/>
-<Survey text={qRadioSelectionText} qType='radioSelection' qOptions={qList.questions.depression.satisfaction} onFCall={this.testFunction} scrollRef={this.refs}/>
-*/
 
 var {screen_height, screen_width} = Dimensions.get('window');
 
