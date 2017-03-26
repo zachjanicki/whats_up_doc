@@ -178,7 +178,7 @@ export default class TestLandingPage extends Component {
     if (!completedSurvey) {
       return "Are you ready for your daily checkup?";
     } else {
-      return "Take a look at your progess";
+      return "You've already taken the daily checkup. See your progess.";
     }
   }
 

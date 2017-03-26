@@ -29,7 +29,7 @@ export default class whats_up_doc extends Component {
         navigationBarHidden={false}
         shadowHidden={true}
         titleTextColor={'white'}
-        barTintColor={'#7eece7'}
+        barTintColor={'rgba(126,236,231,1)'}
       />
     );
   }
