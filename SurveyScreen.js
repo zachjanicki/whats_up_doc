@@ -472,7 +472,7 @@ export default class SurveyScreen extends Component {
             	showsHorizontalScrollIndicator={false}
               style={styles.scrollView}
               automaticallyAdjustContentInsets={false}
-              scrollEnabled={true}
+              scrollEnabled={false}
               ref='_scrollView'
             >
               {/* Note: comments in JSX part go in brackets like this.*/}
