@@ -108,21 +108,14 @@ export default class TestLandingPage extends Component {
     var diff = today - start;
     var oneDay = 1000 * 60 * 60 * 24;
     var day = Math.floor(diff / oneDay);
-    console.log("==========");
-    console.log(today.getFullYear());
-    console.log(day);
-    console.log("==========");
     var date_key = (day * today.getFullYear()).toString() + "_surveyCompleted";
     try {
-      console.log("checking if survey is completed");
-      console.log("Date key from landing page is: " + date_key.toString());
       const isComplete = await AsyncStorage.getItem(date_key);
       if (isComplete == "true") {
         this.setState({
-          completedSurvey: true,
+          completedSurvey: false,
         });
       }
-      console.log(isComplete);
     } catch (error) {
       console.log(error);
     }
