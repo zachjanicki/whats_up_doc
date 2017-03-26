@@ -178,15 +178,15 @@ export default class TestLandingPage extends Component {
         	</View>
         	<View style={styles.foreground}>
         		<View style={styles.welcome}>
-        			<Text style={styles.welcomeText}>good {timeOfDay}, john</Text>
-        			<Text style={styles.subText}>are you ready for your daily checkup?</Text>
+        			<Text style={styles.welcomeText}>Good {timeOfDay}, Chris</Text>
+        			<Text style={styles.subText}>Are you ready for your daily checkup?</Text>
         		</View>
 	                {renderIf(!this.state.completedSurvey,
 	                <TouchableHighlight
 				          style={cardStyles.questionBox}
 				          underlayColor={'#fff'}
 				          onPress={() => this.handlePress(survey)}>
-				            <Text style={styles.beginText}>begin</Text>
+				            <Text style={styles.beginText}>Begin</Text>
 				        </TouchableHighlight>
 
 		                )}
