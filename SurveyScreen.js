@@ -13,7 +13,8 @@ import {
   TouchableHighlight,
   Animated,
   Dimensions,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native';
 
 import LandingPage from './LandingPage';
@@ -107,7 +108,7 @@ export default class SurveyScreen extends Component {
     refs._scrollView.scrollTo({x: 1000, y: 0});
   }
 
-  handlePress(answerValue, cardLocation, cardID) {
+  async handlePress(answerValue, cardLocation, cardID) {
     if (cardID == 9) {
       // move on to next view
       var currentScore = this.state.score;
@@ -122,8 +123,20 @@ export default class SurveyScreen extends Component {
       });
       console.log(this.state);
       // Finished
+      var now = new Date();
+      var start = new Date(now.getFullYear(), 0, 0);
+      var diff = now - start;
+      var oneDay = 1000 * 60 * 60 * 24;
+      var day = Math.floor(diff / oneDay);
+      var date_key = day * now.getFullYear();
+      try {
+        await AsyncStorage.setItem(Number.toString(date_key) + "_surveyCompleted", "true");
+        console.log("data saved!!");
+      } catch (error) {
+        console.log(error);
+      }
       this.props.navigator.pop();
-      
+
     } else {
       // update state, slide over
       var currentScore = this.state.score;

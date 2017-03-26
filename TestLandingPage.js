@@ -66,8 +66,15 @@ if (now >= 4 && now < 12){
 } else if (now > 12 && now < 5) {
 	timeOfDay = "afternoon";
 } else {
-	timeOfDay = "evening"
+	timeOfDay = "evening";
 }
+
+var today = new Date();
+var start = new Date(today.getFullYear(), 0, 0);
+var diff = now - start;
+var oneDay = 1000 * 60 * 60 * 24;
+var day = Math.floor(diff / oneDay);
+var date_key = Number.toString(day * today.getFullYear()) + "_surveyCompleted";
 
 import LandingPage from './LandingPage'
 import SurveyScreen from './SurveyScreen'
@@ -86,11 +93,12 @@ export default class TestLandingPage extends Component {
 	constructor() {
     super();
     this.state = {
-	  completedSurvey: true,
+	    completedSurvey: false,
       profile_loaded: false,
-      is_loading: true
+      is_loading: false
     }
-    this.loadData();
+    this.isSurveyCompleted();
+    //this.loadData();
   }
 
   handlePress(nextComp) {
@@ -102,6 +110,23 @@ export default class TestLandingPage extends Component {
     }
     console.log(this.refs._textInputAge.value);
   }
+
+  async isSurveyCompleted() {
+    try {
+      console.log("checking if survey is completed");
+      const isComplete = await AsyncStorage.getItem(Number.toString(date_key));
+      if (isComplete == "true") {
+        this.setState({
+          completedSurvey: true
+        });
+      }
+      console.log(isComplete);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  /*
   async loadData() {
     try {
       console.log('Loading data...');
@@ -120,8 +145,10 @@ export default class TestLandingPage extends Component {
       console.log(error);
     }
   }
+  */
+
   render() {
-    
+
     const survey = {
       component: SurveyScreen,
       title: 'Survey Screen'
