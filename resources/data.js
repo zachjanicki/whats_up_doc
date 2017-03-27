@@ -11,6 +11,6 @@ export default {
     {day: 4, value: 30},
     {day: 3, value: 30},
     {day: 2, value: 75},
-    {day: 1, value: 70},
+    {day: 1, value: 90},
   ],
 };
