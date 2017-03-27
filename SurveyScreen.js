@@ -17,6 +17,8 @@ import {
   AsyncStorage
 } from 'react-native';
 
+import RNRestart from 'react-native-restart';
+
 import LandingPage from './LandingPage';
 import Survey from './Survey';
 import qList from './questions.json';
@@ -52,6 +54,7 @@ export default class SurveyScreen extends Component {
       sendImgUrl4: buttonNotClicked,
       selectedAnswer: answerSelectionList,
     }
+    console.log(this.state);
   }
 
   selectBoolQuestion(cardID) {
@@ -194,6 +197,7 @@ export default class SurveyScreen extends Component {
       }
 
       this.props.navigator.pop();
+      RNRestart.Restart();
       return;
 
     } else {

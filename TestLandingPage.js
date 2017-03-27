@@ -62,6 +62,7 @@ export default class TestLandingPage extends Component {
     }
     this.isSurveyCompleted();
     this.loadProfile();
+    console.log(this.state);
   }
 
   handlePress(nextComp) {
@@ -255,19 +256,19 @@ export default class TestLandingPage extends Component {
         <Image source={require('./images/getting_started.png')} style={[styles.image_container, {alignItems:'flex-start'}]}>
         <StatusBar barStyle="light-content" />
         <View style={styles.margin}></View>
-        
-        
-        	
-	        	
+
+
+
+
 	        	<KeyboardAvoidingView behavior={'position'} style={[styles.main, {marginTop: 60}]}>
-	        	
+
 	        	<View style={styles.logo_container}>
 	        		<Image style={styles.thumb} source={require('./images/logo.png')} />
 	        	</View>
-	        	
+
 	          	<Text style={styles.getStartedText}>{"let's get started"}</Text>
 	          	<Text style={styles.infoText}>{"tell us a little about yourself"}</Text>
-	           
+
 	            <TextInput
 	              style={styles.textEntry}
 	              ref='_textInputName'
@@ -278,7 +279,7 @@ export default class TestLandingPage extends Component {
 	              onSubmitEditing={(event) => {this.refs._textInputAge.focus();}} />
 	            <View style={styles.line}></View>
 	            <Text style={styles.labelText}>{"first name"}</Text>
-	            
+
 	            <TextInput
 	              style={styles.textEntry}
 	              ref='_textInputAge'
@@ -289,7 +290,7 @@ export default class TestLandingPage extends Component {
 	              onSubmitEditing={(event) => {this.refs._textInputDoctorsName.focus();}}/>
 	            <View style={styles.line}></View>
 	            <Text style={styles.labelText}>{"age"}</Text>
-	            
+
 	            <TextInput
 	              style={styles.textEntry}
 	              ref='_textInputDoctorsName'
@@ -300,7 +301,7 @@ export default class TestLandingPage extends Component {
 	              onSubmitEditing={(event) => {this.refs._textInputDoctorsEmail.focus();}}/>
 	            <View style={styles.line}></View>
 	            <Text style={styles.labelText}>{"doctor's name"}</Text>
-	            
+
 	            <TextInput
 	              style={styles.textEntry}
 	              ref='_textInputDoctorsEmail'
@@ -312,17 +313,17 @@ export default class TestLandingPage extends Component {
 	              onSubmitEditing={(event) => {this.handleSubmit()}}/>
 	            <View style={styles.line}></View>
 	            <Text style={styles.labelText}>{"doctor's email"}</Text>
-	            
+
 	            <TouchableHighlight
 		          style={styles.submitButton}
 		          underlayColor={'#fff'}
 		          onPress={() => this.handleSubmit()}>
 		            <Text style={styles.beginText}>{"submit"}</Text>
 		        </TouchableHighlight>
-	             
+
 		        </KeyboardAvoidingView>
-	      
-          
+
+
           <View style={styles.margin}></View>
         </Image>
       );
