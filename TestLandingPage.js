@@ -198,14 +198,14 @@ export default class TestLandingPage extends Component {
 
     if (this.state.is_loading) {
       return (
-        <Image source={require('./images/morning_breeze.png')} style={styles.image_container}></Image>
+        <Image source={require('./images/morning_breeze.png')}  defaultSource={require('./images/morning_breeze.png')} style={styles.image_container}></Image>
       )
     }
 
     if (this.state.profile_exists) {
       // load regular home page
       return (
-        <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
+        <Image source={require('./images/morning_breeze.png')}  defaultSource={require('./images/morning_breeze.png')} style={styles.image_container}>
         <StatusBar barStyle="light-content" />
 
           <View style={styles.margin}>
@@ -253,7 +253,7 @@ export default class TestLandingPage extends Component {
     } else {
       // load profile creation screen
       return (
-        <Image source={require('./images/getting_started.png')} style={[styles.image_container, {alignItems:'flex-start'}]}>
+        <Image source={require('./images/getting_started.png')}  defaultSource={require('./images/getting_started.png')} style={[styles.image_container, {alignItems:'flex-start'}]}>
         <StatusBar barStyle="light-content" />
         <View style={styles.margin}></View>
 

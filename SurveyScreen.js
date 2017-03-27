@@ -414,7 +414,7 @@ export default class SurveyScreen extends Component {
                   <Text style={styles.questionText}>{Object.keys(cardQuestion)[0].toUpperCase()}</Text>
                 </View>
                 <View style={styles.optionsBox}>
-                  <Text style={styles.optionsText}>{numericDescriptionText}</Text>
+                  <Text style={styles.numericDescriptionText}>{numericDescriptionText}</Text>
                   <TouchableHighlight onPress={() => {this.handlePress(1, cardLocation, cardID)}} underlayColor={'#fff'}>
                     <View style={styles.line}>
 	                  	<Image source={this.renderButton(this.state.selectedAnswer[cardID][0])} style={styles.radio} />
@@ -455,7 +455,7 @@ export default class SurveyScreen extends Component {
 
     }
     return (
-      <Image source={require('./images/morning_breeze.png')} style={styles.image_container}>
+      <Image source={require('./images/morning_breeze.png')} defaultSource={require('./images/morning_breeze.png')} style={styles.image_container}>
       	<View style={styles.sky}>
       		<View style={styles.sun} />
       		<View style={styles.space} />
@@ -560,7 +560,7 @@ const styles = StyleSheet.create({
     height: null,
   },
   container: {
-    flex: 8,
+    flex: 9,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -665,6 +665,14 @@ const styles = StyleSheet.create({
 	optionsText: {
 		fontFamily: 'Helvetica Neue',
 		fontSize: 0.3*fontSizer(screen_width),
+		fontWeight: '300',
+		color: 'rgba(30,30,30,.6)',
+		marginLeft: 0.3*fontSizer(screen_width),
+		marginRight: 0.3*fontSizer(screen_width),
+	},
+	numericDescriptionText: {
+		fontFamily: 'Helvetica Neue',
+		fontSize: 0.25*fontSizer(screen_width),
 		fontWeight: '300',
 		color: 'rgba(30,30,30,.6)',
 		marginLeft: 0.3*fontSizer(screen_width),
