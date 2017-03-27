@@ -531,6 +531,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 7JTEG44RSW;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -918,6 +919,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 7JTEG44RSW;
@@ -930,6 +932,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.michaelmcroskey.whatsupdoc;
 				PRODUCT_NAME = whats_up_doc;
+				PROVISIONING_PROFILE = "096fec42-d4ad-4153-9c9d-1dae457b18d3";
+				PROVISIONING_PROFILE_SPECIFIER = TestFlight3;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -939,6 +943,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7JTEG44RSW;
 				INFOPLIST_FILE = whats_up_doc/Info.plist;
@@ -950,6 +955,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.michaelmcroskey.whatsupdoc;
 				PRODUCT_NAME = whats_up_doc;
+				PROVISIONING_PROFILE = "096fec42-d4ad-4153-9c9d-1dae457b18d3";
+				PROVISIONING_PROFILE_SPECIFIER = TestFlight3;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

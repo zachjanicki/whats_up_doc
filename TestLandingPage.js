@@ -29,11 +29,11 @@ var Sun = React.createClass({
     }
 })
 
-timeOfDay = "evening"
+timeOfDay = ""
 var now = new Date().getHours();
-if (now >= 4 && now < 12){
+if (now > 4 && now < 12){
 	timeOfDay = "morning";
-} else if (now > 12 && now < 5) {
+} else if (now >= 12 && now < 17) {
 	timeOfDay = "afternoon";
 } else {
 	timeOfDay = "evening";
@@ -398,7 +398,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   welcomeText:{
-	  fontSize: 1.1*fontSizer(screen_width),
+	  fontSize: 1*fontSizer(screen_width),
 	  color: 'rgba(92,154,167,0.9)',
 	  fontWeight: '600',
 	  marginBottom: 10,
@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   margin:{
-	flex: 2,
+	flex: 1.5,
 	backgroundColor: 'red',
 	flexShrink: 0,
   },
