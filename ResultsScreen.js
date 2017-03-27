@@ -20,10 +20,12 @@ import {
 import LandingPage from './LandingPage';
 import Survey from './Survey';
 import qList from './questions.json';
+import Row from './Row';
 
 import AreaSpline from './js/charts/AreaSpline';
 import Theme from './js/theme';
 import data from './resources/data';
+import new_data from './demoData';
 
 type State = {
   activeIndex: number,
@@ -39,7 +41,7 @@ export default class ResultsScreen extends Component {
     this.state = {
       activeIndex: 0,
       spendingsPerYear: data.spendingsPerYear,
-      dataSource: ds.cloneWithRows(this._genRows({})),
+      dataSource: ds.cloneWithRows(new_data),
     };
   }
   
@@ -111,7 +113,7 @@ export default class ResultsScreen extends Component {
         		<ListView
         			automaticallyAdjustContentInsets={false}
 			        dataSource={this.state.dataSource}
-			        renderRow={this._renderRow}
+			        renderRow={(new_data) => <Row {...new_data} />}
 			        renderSeparator={this._renderSeparator}
 					/>
         	</View>
