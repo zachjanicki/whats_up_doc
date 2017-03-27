@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  KeyboardAvoidingView,
   StyleSheet,
   Dimensions,
   Text,
@@ -251,34 +252,78 @@ export default class TestLandingPage extends Component {
     } else {
       // load profile creation screen
       return (
-        <Image source={require('./images/morning_breeze.png')}>
-          <View style={{marginTop: 50}}>
-            <Text>Welcome to whats up doc, the app to help you track your mental health</Text>
-            <Text>Please fill out the following information to begin</Text>
-            <Text>Name:</Text>
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              ref='_textInputName'
-              onChangeText={(username) => this.setState({username})}></TextInput>
-            <Text>Age:</Text>
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              ref='_textInputAge'
-              onChangeText={(age) => this.setState({age})}></TextInput>
-            <Text>Doctor's Name:</Text>
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              ref='_textInputDoctorsName'
-              onChangeText={(doctorName) => this.setState({doctorName})}></TextInput>
-            <Text>Doctors's Email:</Text>
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              ref='_textInputDoctorsEmail'
-              onChangeText={(doctorEmail) => this.setState({doctorEmail})}></TextInput>
-            <TouchableHighlight onPress={() => {this.handleSubmit()}}>
-              <Text>Submit</Text>
-            </TouchableHighlight>
-          </View>
+        <Image source={require('./images/getting_started.png')} style={[styles.image_container, {alignItems:'flex-start'}]}>
+        <StatusBar barStyle="light-content" />
+        <View style={styles.margin}></View>
+        
+        
+        	
+	        	
+	        	<KeyboardAvoidingView behavior={'position'} style={[styles.main, {marginTop: 60}]}>
+	        	
+	        	<View style={styles.logo_container}>
+	        		<Image style={styles.thumb} source={require('./images/logo.png')} />
+	        	</View>
+	        	
+	          	<Text style={styles.getStartedText}>{"let's get started"}</Text>
+	          	<Text style={styles.infoText}>{"tell us a little about yourself"}</Text>
+	           
+	            <TextInput
+	              style={styles.textEntry}
+	              ref='_textInputName'
+	              keyboardType='default'
+	              returnKeyType='next'
+	              placeholder="Sarah"
+	              onChangeText={(username) => this.setState({username})}
+	              onSubmitEditing={(event) => {this.refs._textInputAge.focus();}} />
+	            <View style={styles.line}></View>
+	            <Text style={styles.labelText}>{"first name"}</Text>
+	            
+	            <TextInput
+	              style={styles.textEntry}
+	              ref='_textInputAge'
+	              keyboardType='numeric'
+	              returnKeyType='next'
+	              placeholder="21"
+	              onChangeText={(age) => this.setState({age})}
+	              onSubmitEditing={(event) => {this.refs._textInputDoctorsName.focus();}}/>
+	            <View style={styles.line}></View>
+	            <Text style={styles.labelText}>{"age"}</Text>
+	            
+	            <TextInput
+	              style={styles.textEntry}
+	              ref='_textInputDoctorsName'
+	              keyboardType='default'
+	              returnKeyType='next'
+	              placeholder="Kathy Jensen"
+	              onChangeText={(doctorName) => this.setState({doctorName})}
+	              onSubmitEditing={(event) => {this.refs._textInputDoctorsEmail.focus();}}/>
+	            <View style={styles.line}></View>
+	            <Text style={styles.labelText}>{"doctor's name"}</Text>
+	            
+	            <TextInput
+	              style={styles.textEntry}
+	              ref='_textInputDoctorsEmail'
+	              keyboardType='email-address'
+	              returnKeyType='done'
+	              autoCapitalize="none"
+	              placeholder="jensen@med.org"
+	              onChangeText={(doctorEmail) => this.setState({doctorEmail})}
+	              onSubmitEditing={(event) => {this.handleSubmit()}}/>
+	            <View style={styles.line}></View>
+	            <Text style={styles.labelText}>{"doctor's email"}</Text>
+	            
+	            <TouchableHighlight
+		          style={styles.submitButton}
+		          underlayColor={'#fff'}
+		          onPress={() => this.handleSubmit()}>
+		            <Text style={styles.beginText}>{"submit"}</Text>
+		        </TouchableHighlight>
+	             
+		        </KeyboardAvoidingView>
+	      
+          
+          <View style={styles.margin}></View>
         </Image>
       );
     }
@@ -304,6 +349,19 @@ function fontSizer (screenWidth) {
 
 
 const styles = StyleSheet.create({
+	logo_container:{
+		height: 60,
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginTop: 20,
+		marginBottom: 20,
+	},
+  thumb: {
+	  flex: 1,
+	  width: 50,
+	  height: 50,
+	  resizeMode: 'contain',
+  },
   image_container: {
     flex: 1,
     flexDirection: 'row',
@@ -351,12 +409,47 @@ const styles = StyleSheet.create({
 	  fontWeight: '600',
 	  marginBottom: 25,
   },
+  getStartedText:{
+	  fontSize: 0.55*fontSizer(screen_width),
+	  color: '#5c7e99',
+	  fontWeight: '800',
+  },
+  infoText:{
+	  fontSize: 0.3*fontSizer(screen_width),
+	  color: '#828282',
+	  fontWeight: '400',
+	  marginBottom: 25,
+  },
   beginText:{
 	  fontSize: 0.3*fontSizer(screen_width),
 	  color: 'white',
 	  fontWeight: '400',
 	  letterSpacing: 2,
   },
+  labelText:{
+	  fontSize: 0.25*fontSizer(screen_width),
+	  color: '#5c7e99',
+	  fontWeight: '300',
+	  marginBottom: 20,
+  },
+  textEntry: {
+    height: 30,
+    borderWidth: 0.5,
+    borderColor: 'transparent',
+    fontSize: 30,
+    color: '#2c6088',
+  },
+  line: {
+    height: 1,
+    marginTop: 5,
+    backgroundColor: '#5c7e99'
+	},
+	submitButton:{
+		height: 50,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: '#20c0ba',
+	},
   primaryText: {
     fontSize: fontSizer(screen_width),
     fontFamily: 'Helvetica Neue',
