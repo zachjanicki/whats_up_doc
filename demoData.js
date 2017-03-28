@@ -296,15 +296,5 @@ export default new_data = [
     "medication": true,
     "sleep": true,
     "improvement": true
-  },
-  {
-	"id": "1",
-    "date": "April 30",
-    "time": "12:12pm",
-    "score": "13",
-    "exercise": true,
-    "medication": true,
-    "sleep": false,
-    "improvement": true
   }
 ];
